@@ -53,7 +53,7 @@
   
       ,"page3": {
           "title": "Publications",
-          "content": "Notes on Modern Hebrew phonology and orthography (book chapter)Stav Klein. Usage-Based Studies in Modern Hebrew - Background, Morpho-lexicon and Syntax, 2020. . Getting the ##life out of living: How adequate are word-pieces for modelling complex morphology?Stav Klein and Reut Tsarfaty. SIGMORPHON, ACL workshop, 2020. . From SPMRL to NMRL: What Did We Learn (and Unlearn) in a Decade of Parsing Morphologically-Rich Languages (MRLs)?Reut Tsarfaty, Dan Bareket, Stav Klein, Amit Seker. ACL 2020. . What’s Wrong with Hebrew NLP? And How to Make it RightReut Tsarfaty, Shoval Sadde, Stav Klein, Amit Seker. EMNLP 2019 Demo paper. .",
+          "content": "2020 . Notes on Modern Hebrew phonology and orthography (book chapter)Stav Klein. Usage-Based Studies in Modern Hebrew - Background, Morpho-lexicon and Syntax. . Getting the ##life out of living: How adequate are word-pieces for modelling complex morphology?Stav Klein and Reut Tsarfaty. SIGMORPHON, ACL workshop. . From SPMRL to NMRL: What Did We Learn (and Unlearn) in a Decade of Parsing Morphologically-Rich Languages (MRLs)?Reut Tsarfaty, Dan Bareket, Stav Klein, Amit Seker. ACL. . 2019 . What’s Wrong with Hebrew NLP? And How to Make it RightReut Tsarfaty, Shoval Sadde, Stav Klein, Amit Seker. EMNLP Demo paper. .",
           "url": "https://stavkl.github.io/linguistics-for-nlp/publications/",
           "relUrl": "/publications/",
           "date": ""
