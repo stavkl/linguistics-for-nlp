@@ -17,4 +17,4 @@ Always happy to chat, you can find me on <a href="https://twitter.com/stavkl">Tw
 <p><a href="https://www.aclweb.org/anthology/D19-3044/">What’s Wrong with Hebrew NLP? And How to Make it Right</a><br>Reut Tsarfaty, Shoval Sadde, Stav Klein, Amit Seker. EMNLP 2019 Demo paper.</p>
 
 
-<figure class="image"><img src="/images/moving-on-up.jpg" style="width:30%"><figcaption>Moving on up!</figcaption></figure>
+<figure class="image"><img src="/images/moving-on-up.jpg"><figcaption>Moving on up!</figcaption></figure>
