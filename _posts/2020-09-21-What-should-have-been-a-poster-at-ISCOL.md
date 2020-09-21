@@ -5,12 +5,13 @@ description: Overview of the SIGMORPHON 2020 paper.
 categories: [markdown]
 title: What should have been a poster at ISCOL
 ---
-
+*This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn't.*
+___
 ### Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
----
-tldr; not at all.
+**tldr;** 
+not at all.
 
-*This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at ISCOL too but eventually didn't. Fortunately though, a blog post is more interactive, fun, and free-style than a paper, poster or an 8-min presentation and definitely my favorite medium.*
+
 
 The task: Part-of-speech Tagging
 
@@ -26,6 +27,6 @@ The means: fine-tuning Multilingual BERT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ2NzE1Njg0OSwtMTYxOTE2Njk1LDEwOT
-Y3MjkzMTYsMTk4NTI2NDE4OV19
+eyJoaXN0b3J5IjpbLTUyMjg3NTY1NywxNDY3MTU2ODQ5LC0xNj
+E5MTY2OTUsMTA5NjcyOTMxNiwxOTg1MjY0MTg5XX0=
 -->
