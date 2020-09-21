@@ -10,7 +10,7 @@ title: What should have been a poster at ISCOL
 ---
 tldr; not at all.
 
-This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at ISCOL too but eventually didn't. Fortunately though, a blog post is more interactive, fun, and free-style than a paper, poster or an 8-min presentation and definitely my favorite medium.
+*This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at ISCOL too but eventually didn't. Fortunately though, a blog post is more interactive, fun, and free-style than a paper, poster or an 8-min presentation and definitely my favorite medium.*
 
 The task: Part-of-speech Tagging
 
@@ -26,6 +26,6 @@ The means: fine-tuning Multilingual BERT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MTkxNjY5NSwxMDk2NzI5MzE2LDE5OD
-UyNjQxODldfQ==
+eyJoaXN0b3J5IjpbMTQ2NzE1Njg0OSwtMTYxOTE2Njk1LDEwOT
+Y3MjkzMTYsMTk4NTI2NDE4OV19
 -->
