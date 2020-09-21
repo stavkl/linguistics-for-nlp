@@ -6,7 +6,7 @@ categories: [markdown]
 title: What should have been a poster at ISCOL
 ---
 *This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn't.*
-___
+---
 ### Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
 **tldr;** 
 not at all.
@@ -19,7 +19,7 @@ The means: fine-tuning Multilingual BERT<br>
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMzkwMTM4NSwtNzY5OTgzMjUxLDE0Nj
-cxNTY4NDksLTE2MTkxNjY5NSwxMDk2NzI5MzE2LDE5ODUyNjQx
-ODldfQ==
+eyJoaXN0b3J5IjpbMTAwMjUzMDAyNSwtMTIzOTAxMzg1LC03Nj
+k5ODMyNTEsMTQ2NzE1Njg0OSwtMTYxOTE2Njk1LDEwOTY3Mjkz
+MTYsMTk4NTI2NDE4OV19
 -->
