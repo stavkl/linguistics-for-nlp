@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://stavkl.github.io/linguistics-for-nlp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://stavkl.github.io/linguistics-for-nlp/" rel="alternate" type="text/html" /><updated>2020-09-21T15:00:52-05:00</updated><id>https://stavkl.github.io/linguistics-for-nlp/feed.xml</id><title type="html">Linguistics for NLP</title><subtitle>My linguistic perspective on NLP research.</subtitle><entry><title type="html">What should have been a poster at ISCOL</title><link href="https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html" rel="alternate" type="text/html" title="What should have been a poster at ISCOL" /><published>2020-09-21T00:00:00-05:00</published><updated>2020-09-21T00:00:00-05:00</updated><id>https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL</id><content type="html" xml:base="https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html">&lt;h2 id=&quot;this-post-will-review-the-paper-i-presented-at-sigmorphon-this-year-see-link-in-the-publications-section-that-should-have-been-presented-at-the-iscol-conference-too-but-eventually-didnt&quot;&gt;&lt;em&gt;This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn’t.&lt;/em&gt;&lt;/h2&gt;
-
-&lt;h3 id=&quot;getting-the-life-out-of-living-how-adequate-are-word-pieces-for-modelling-complex-morphology&quot;&gt;Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt; 
-not at all.&lt;/p&gt;
-
-&lt;p&gt;The task: Part-of-speech Tagging
-The language: Hebrew
-The data: &lt;a href=&quot;https://github.com/OnlpLab/Hebrew_UD&quot;&gt;The Hebrew treebank&lt;/a&gt;
-The means: fine-tuning Multilingual BERT&lt;/p&gt;
-
-&lt;h3 id=&quot;the-challenges-with-pos-tagging-in-hebrew&quot;&gt;The challenge(s) with POS-tagging in Hebrew&lt;/h3&gt;
-
-&lt;!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk1MjYyOTU4MSwtNzY5OTgzMjUxLDE0Nj
-cxNTY4NDksLTE2MTkxNjY5NSwxMDk2NzI5MzE2LDE5ODUyNjQx
-ODldfQ==
---&gt;</content><author><name></name></author><summary type="html">This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn’t.</summary></entry></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://stavkl.github.io/linguistics-for-nlp/feed.xml" rel="self" type="application/atom+xml" /><link href="https://stavkl.github.io/linguistics-for-nlp/" rel="alternate" type="text/html" /><updated>2020-09-21T15:03:58-05:00</updated><id>https://stavkl.github.io/linguistics-for-nlp/feed.xml</id><title type="html">Linguistics for NLP</title><subtitle>My linguistic perspective on NLP research.</subtitle></feed>
