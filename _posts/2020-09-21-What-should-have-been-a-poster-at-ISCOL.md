@@ -6,7 +6,7 @@ categories: [markdown]
 title: What should have been a poster at ISCOL
 ---
 
-# Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
+## Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
 ---
 tldr; not at all.
 
@@ -26,5 +26,5 @@ The means: fine-tuning Multilingual BERT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk4NTI2NDE4OV19
+eyJoaXN0b3J5IjpbMTMwMTkwNjExNCwxOTg1MjY0MTg5XX0=
 -->
