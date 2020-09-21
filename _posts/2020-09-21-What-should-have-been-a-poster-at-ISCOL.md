@@ -18,12 +18,12 @@ The means: fine-tuning Multilingual BERT<br>
 ### The challenge(s) with POS-tagging in Hebrew
 This section only deals with the challenges in POS-tagging Hebrew, and in another post I'll review the challenges of processing non-concatenative morphology in general.
 In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix *-s*, while a free morpheme stands on its own, like the coordinator *and*. 
-
+The main difference between English and Hebrew in this sense is that 
 
 In English, each word (i.e. space-delimited sequence of characters) has a single, simple POS tag. 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTAxNjY0NTI2LC0xMjM5MDEzODUsLTc2OT
-k4MzI1MSwxNDY3MTU2ODQ5LC0xNjE5MTY2OTUsMTA5NjcyOTMx
-NiwxOTg1MjY0MTg5XX0=
+eyJoaXN0b3J5IjpbLTEwODQxMTkzNzksLTEyMzkwMTM4NSwtNz
+Y5OTgzMjUxLDE0NjcxNTY4NDksLTE2MTkxNjY5NSwxMDk2NzI5
+MzE2LDE5ODUyNjQxODldfQ==
 -->
