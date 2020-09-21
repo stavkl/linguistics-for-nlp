@@ -1,3 +1,11 @@
+---
+toc: true
+layout: post
+description: Overview of the SIGMORPHON 2020 paper.
+categories: [markdown]
+title: What should have been a poster at ISCOL
+---
+
 # Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
 ---
 tldr; not at all.
