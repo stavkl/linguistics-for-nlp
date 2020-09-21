@@ -17,11 +17,11 @@ The data: [The Hebrew treebank](https://github.com/OnlpLab/Hebrew_UD)<br>
 The means: fine-tuning Multilingual BERT<br>
 ### The challenge(s) with POS-tagging in Hebrew
 This section only deals with the challenges in POS-tagging Hebrew, and in another post I'll review the challenges of processing non-concatenative morphology in general.
-In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning
+In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. Boun
 In English, each word (i.e. space-delimited sequence of characters) has a single, simple POS tag. 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODExNDExOTI3LC0xMjM5MDEzODUsLTc2OT
+eyJoaXN0b3J5IjpbLTkyMTI5MjcwLC0xMjM5MDEzODUsLTc2OT
 k4MzI1MSwxNDY3MTU2ODQ5LC0xNjE5MTY2OTUsMTA5NjcyOTMx
 NiwxOTg1MjY0MTg5XX0=
 -->
