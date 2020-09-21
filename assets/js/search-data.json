@@ -1,11 +1,22 @@
 {
   
+    
+        "post0": {
+            "title": "What should have been a poster at ISCOL",
+            "content": "This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn’t. . Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology? . tldr; not at all. . The task: Part-of-speech Tagging The language: Hebrew The data: The Hebrew treebank The means: fine-tuning Multilingual BERT . The challenge(s) with POS-tagging in Hebrew .",
+            "url": "https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html",
+            "relUrl": "/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html",
+            "date": " • Sep 21, 2020"
+        }
+        
+    
+  
 
   
   
 
   
-      "page1": {
+      ,"page1": {
           "title": "About",
           "content": "Hi :) . My name is Stav Klein. I’m studying towards an MA in Linguistics (Tel-Aviv University) while doing some cool stuff with NLP. I’m mostly interested in processing morphologically-rich low-resource languages, first-language acquisition and how to use linguistic knowledge to improve models, methodologies and applications (“just use more data” is never the answer). . Always happy to chat, you can find me on Twitter, Linkedin or Github . Moving on up",
           "url": "https://stavkl.github.io/linguistics-for-nlp/about/",

@@ -4,17 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>About | Linguistics for NLP</title>
+<title>What should have been a poster at ISCOL | Linguistics for NLP</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="About" />
+<meta property="og:title" content="What should have been a poster at ISCOL" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="My linguistic perspective on NLP research." />
-<meta property="og:description" content="My linguistic perspective on NLP research." />
-<link rel="canonical" href="https://stavkl.github.io/linguistics-for-nlp/about/" />
-<meta property="og:url" content="https://stavkl.github.io/linguistics-for-nlp/about/" />
+<meta name="description" content="Overview of the SIGMORPHON 2020 paper." />
+<meta property="og:description" content="Overview of the SIGMORPHON 2020 paper." />
+<link rel="canonical" href="https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html" />
+<meta property="og:url" content="https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html" />
 <meta property="og:site_name" content="Linguistics for NLP" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-21T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"My linguistic perspective on NLP research.","@type":"WebSite","headline":"About","url":"https://stavkl.github.io/linguistics-for-nlp/about/","name":"Linguistics for NLP","@context":"https://schema.org"}</script>
+{"description":"Overview of the SIGMORPHON 2020 paper.","@type":"BlogPosting","headline":"What should have been a poster at ISCOL","dateModified":"2020-09-21T00:00:00-05:00","datePublished":"2020-09-21T00:00:00-05:00","url":"https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://stavkl.github.io/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/linguistics-for-nlp/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://stavkl.github.io/linguistics-for-nlp/feed.xml" title="Linguistics for NLP" /><link rel="shortcut icon" type="image/x-icon" href="/linguistics-for-nlp/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -66,25 +68,50 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">About</h1>
-  </header>
+    <h1 class="post-title p-name" itemprop="name headline">What should have been a poster at ISCOL</h1><p class="page-description">Overview of the SIGMORPHON 2020 paper.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-21T00:00:00-05:00" itemprop="datePublished">
+        Sep 21, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
 
-  <div class="post-content">
-    <h2 id="hi-">Hi :)</h2>
-<p>My name is Stav Klein. 
-I’m studying towards an MA in Linguistics (Tel-Aviv University) while doing some cool stuff with NLP. I’m mostly interested in processing morphologically-rich low-resource languages, first-language acquisition and how to use linguistic knowledge to improve models, methodologies and applications (“just use more data” is never the answer).</p>
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/linguistics-for-nlp/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
 
-<p>Always happy to chat, you can find me on <a href="https://twitter.com/stavkl" target="_blank">Twitter</a>, <a href="https://www.linkedin.com/in/stav-klein-105736135/" target="_blank">Linkedin</a> or <a href="https://github.com/stavkl" target="_blank">Github</a></p>
+    </header>
 
-<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/moving-on-up.jpg" width="85%" alt="" /><figcaption>Moving on up </figcaption></figure>
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="this-post-will-review-the-paper-i-presented-at-sigmorphon-this-year-see-link-in-the-publications-section-that-should-have-been-presented-at-the-iscol-conference-too-but-eventually-didnt"><em>This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn’t.</em></h2>
 
-  </div>
+<h3 id="getting-the-life-out-of-living-how-adequate-are-word-pieces-for-modelling-complex-morphology">Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?</h3>
+<p><strong>tldr;</strong> 
+not at all.</p>
 
+<p>The task: Part-of-speech Tagging
+The language: Hebrew
+The data: <a href="https://github.com/OnlpLab/Hebrew_UD">The Hebrew treebank</a>
+The means: fine-tuning Multilingual BERT</p>
+
+<h3 id="the-challenges-with-pos-tagging-in-hebrew">The challenge(s) with POS-tagging in Hebrew</h3>
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTk1MjYyOTU4MV19
+-->
+
+  </div><a class="u-url" href="/linguistics-for-nlp/markdown/2020/09/21/What-should-have-been-a-poster-at-ISCOL.html" hidden></a>
 </article>
-
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/linguistics-for-nlp/"></data>
