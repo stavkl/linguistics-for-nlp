@@ -11,14 +11,9 @@ ___
 **tldr;** 
 not at all.
 
-
-
 The task: Part-of-speech Tagging
-
 The language: Hebrew
-
 The data: [The Hebrew treebank](https://github.com/OnlpLab/Hebrew_UD)
-
 The means: fine-tuning Multilingual BERT
 
   
@@ -27,6 +22,6 @@ The means: fine-tuning Multilingual BERT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUyMjg3NTY1NywxNDY3MTU2ODQ5LC0xNj
+eyJoaXN0b3J5IjpbLTc2OTk4MzI1MSwxNDY3MTU2ODQ5LC0xNj
 E5MTY2OTUsMTA5NjcyOTMxNiwxOTg1MjY0MTg5XX0=
 -->
