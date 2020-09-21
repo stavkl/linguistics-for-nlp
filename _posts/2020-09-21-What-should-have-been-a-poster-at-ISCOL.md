@@ -2,7 +2,7 @@
 ---
 tldr; not at all.
 
-{% include https://github.com/stavkl/linguistics-for-nlp/raw/master/_includes/info.html text="So this post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at ISCOL too but eventually didn't. Fortunately though, a blog post is more interactive, fun, and 'free-style' than a paper, poster or an 8-min presentation and definitely my favorite medium." %}
+{% include info.html text="So this post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at ISCOL too but eventually didn't. Fortunately though, a blog post is more interactive, fun, and free-style than a paper, poster or an 8-min presentation and definitely my favorite medium." %}
 
 The task: Part-of-speech Tagging
 
