@@ -23,11 +23,11 @@ The means: fine-tuning Multilingual BERT
 
   
 
-# The problem(s) with Hebrew and all other Semitic languages
+# The challenge(s) with POS-tagging in Hebrew
 
 TODO: edit so that it'd reflect that english also has morphemes - this is not the issue.
 
 It's meaningless to talk about words in Hebrew. In a language like English we take any space-delimited sequence of characters to be a word, and that's generally a good rule of thumb **for English**. Why? Because a space-delimited sequence (let's just go with *word* from now on, ok?) in English usually has a single meaning, also resulting in a single, simple part-of-speech tag. In Hebrew "words" are composed of u
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc4NDk4MzU1Ml19
+eyJoaXN0b3J5IjpbLTE3MzM2MTcyXX0=
 -->
