@@ -11,17 +11,15 @@ ___
 **tldr;** 
 not at all.
 
-The task: Part-of-speech Tagging
-The language: Hebrew
-The data: [The Hebrew treebank](https://github.com/OnlpLab/Hebrew_UD)
-The means: fine-tuning Multilingual BERT
-
-  
-
+The task: Part-of-speech Tagging<br>
+The language: Hebrew<br>
+The data: [The Hebrew treebank](https://github.com/OnlpLab/Hebrew_UD)<br>
+The means: fine-tuning Multilingual BERT<br>
 ### The challenge(s) with POS-tagging in Hebrew
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc2OTk4MzI1MSwxNDY3MTU2ODQ5LC0xNj
-E5MTY2OTUsMTA5NjcyOTMxNiwxOTg1MjY0MTg5XX0=
+eyJoaXN0b3J5IjpbLTEyMzkwMTM4NSwtNzY5OTgzMjUxLDE0Nj
+cxNTY4NDksLTE2MTkxNjY5NSwxMDk2NzI5MzE2LDE5ODUyNjQx
+ODldfQ==
 -->
