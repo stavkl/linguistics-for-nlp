@@ -1,5 +1,5 @@
 ---
-toc: true
+toc: false
 layout: post
 description: Overview of the SIGMORPHON 2020 paper.
 categories: [markdown]
@@ -26,5 +26,6 @@ The means: fine-tuning Multilingual BERT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5NjcyOTMxNiwxOTg1MjY0MTg5XX0=
+eyJoaXN0b3J5IjpbLTE2MTkxNjY5NSwxMDk2NzI5MzE2LDE5OD
+UyNjQxODldfQ==
 -->
