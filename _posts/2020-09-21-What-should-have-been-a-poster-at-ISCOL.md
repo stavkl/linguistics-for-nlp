@@ -1,9 +1,10 @@
 ---
 toc: false
 layout: post
-description: Overview of the SIGMORPHON 2020 paper.
+description: What should have been a poster at ISCOL
 categories: [markdown]
-title: What should have been a poster at ISCOL
+
+title: Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
 ---
 *This post will review the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn't.*
 ---
@@ -23,8 +24,8 @@ The main difference between English and Hebrew in this sense is that Hebrew has 
 In English, each word (i.e. space-delimited sequence of characters) has a single, simple POS tag. 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxMDEzNjk3MCwtNDY3NDY3MTQ1LDE2ND
-c2MzY0MjIsLTMzMjA3NDI4MywtMTIzOTAxMzg1LC03Njk5ODMy
-NTEsMTQ2NzE1Njg0OSwtMTYxOTE2Njk1LDEwOTY3MjkzMTYsMT
-k4NTI2NDE4OV19
+eyJoaXN0b3J5IjpbLTc3MDA0NTEyOCwtMzEwMTM2OTcwLC00Nj
+c0NjcxNDUsMTY0NzYzNjQyMiwtMzMyMDc0MjgzLC0xMjM5MDEz
+ODUsLTc2OTk4MzI1MSwxNDY3MTU2ODQ5LC0xNjE5MTY2OTUsMT
+A5NjcyOTMxNiwxOTg1MjY0MTg5XX0=
 -->
