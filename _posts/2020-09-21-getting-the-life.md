@@ -25,8 +25,9 @@ The main difference between English and Hebrew in this sense is that Hebrew has 
 
 This is where you should say *"but wait, English has words that are composed of several morphemes, how come we don't have multitags for English?*
 Great question, let's think about the possible cases:
-1. *dog* vs *dogs* - the words 'dogs' is clearly composed of two morphemes, but 
+1. *dog* vs *dogs* - the words 'dogs' is clearly composed of two morphemes, but the plural suffix doesn't have its own POS-tag, so we get the same 'NN' POS-tag for both.
+2. 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI3NzE0MDgwM119
+eyJoaXN0b3J5IjpbLTE5NTMwNjkwNzIsMTI3NzE0MDgwM119
 -->
