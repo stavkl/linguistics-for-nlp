@@ -21,10 +21,10 @@ The means: fine-tuning Multilingual BERT<br>
 ### The challenge(s) with POS-tagging in Hebrew
 This section only deals with the challenges in POS-tagging Hebrew, and in another post I'll review the challenges of processing languages with non-concatenative morphology in general.
 In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix *-s*, while a free morpheme can stand on its own, like the coordinator *and*. 
-The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? We don't choose, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multitag would be CONJ^REL\^VB with the '^' indicating the correct order.
-The multitag notation is absolutely crucial for Hebrew 
+The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don't, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multitag would be CONJ^REL\^VB with the '^' indicating the correct order.
+This is absolutely crucial for the analysis of Hebrew.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1OTI4MjQyNiw1NjE3MzY4MjksMTI3Nz
-E0MDgwM119
+eyJoaXN0b3J5IjpbLTE4ODEzODkxNzUsNTYxNzM2ODI5LDEyNz
+cxNDA4MDNdfQ==
 -->
