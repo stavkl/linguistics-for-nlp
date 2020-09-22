@@ -23,8 +23,8 @@ This section only deals with the challenges in POS-tagging Hebrew, and in anothe
 In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix *-s*, while a free morpheme can stand on its own, like the coordinator *and*. 
 The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? We don't choose, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multitag would be CONJ^REL\^VB with the '^' indicating the correct order.
 
-This is where you should say *"but wait, English *
+This is where you should say *"but wait, English has words that are composed of several morphemes, how come we don't hav*
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI1NTc1NzIzMV19
+eyJoaXN0b3J5IjpbLTE1OTE3ODQ0MzldfQ==
 -->
