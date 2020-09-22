@@ -3,7 +3,7 @@ toc: false
 layout: post
 description: What should have been a poster at ISCOL
 categories: [fastpages, jupyter]
-h
+image: images/bert.png
 
 title: Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?
 ---
@@ -17,6 +17,7 @@ The task: Part-of-speech Tagging<br>
 The language: Hebrew<br>
 The data: [The Hebrew treebank](https://github.com/OnlpLab/Hebrew_UD)<br>
 The means: fine-tuning Multilingual BERT<br>
+
 ### The challenge(s) with POS-tagging in Hebrew
 This section only deals with the challenges in POS-tagging Hebrew, and in another post I'll review the challenges of processing non-concatenative morphology in general.
 In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix *-s*, while a free morpheme can stand on its own, like the coordinator *and*. 
@@ -25,8 +26,8 @@ The main difference between English and Hebrew in this sense is that Hebrew has 
 In English, each word (i.e. space-delimited sequence of characters) has a single, simple POS tag. 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMTgzNjI5OTcsLTMxMDEzNjk3MCwtND
-Y3NDY3MTQ1LDE2NDc2MzY0MjIsLTMzMjA3NDI4MywtMTIzOTAx
-Mzg1LC03Njk5ODMyNTEsMTQ2NzE1Njg0OSwtMTYxOTE2Njk1LD
-EwOTY3MjkzMTYsMTk4NTI2NDE4OV19
+eyJoaXN0b3J5IjpbLTY5MjQ2MzM0NywtMzEwMTM2OTcwLC00Nj
+c0NjcxNDUsMTY0NzYzNjQyMiwtMzMyMDc0MjgzLC0xMjM5MDEz
+ODUsLTc2OTk4MzI1MSwxNDY3MTU2ODQ5LC0xNjE5MTY2OTUsMT
+A5NjcyOTMxNiwxOTg1MjY0MTg5XX0=
 -->
