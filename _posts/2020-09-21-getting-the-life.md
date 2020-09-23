@@ -32,9 +32,9 @@ The widely-accepted conclusion is that in order to parse Hebrew correctly we mus
 However, it's usually the case that a single word would have more than one possible segmentation, non of which is a-priori more likely, and the correct one is only recoverable in **context**.... see where this is going, right?
 
 ### Along came BERT
-Not going to introduce BERT here, it took the world by storm and since then has been used for pretty much anything - turning regular rocks into gold, curing the blind, bringing people back from the dead... and wasn
+Not going to introduce BERT here, it took the world by storm and since then has been used for pretty much anything - turning regular rocks into gold, curing the blind, bringing people back from the dead... and wasn't trained on any of these tasks, what a guy! 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ1NDYxODkzNywtMzM1MTkyMTQzLC0zMT
-gxODE1NCwxNzYwNTIwMDY4LDIwNTUxNDA5NTgsLTg1NDgwOTUz
-LDU2MTczNjgyOSwxMjc3MTQwODAzXX0=
+eyJoaXN0b3J5IjpbLTE3NzQyMzc5NjUsLTMzNTE5MjE0MywtMz
+E4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1
+Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
 -->
