@@ -27,6 +27,8 @@ This is absolutely crucial for the analysis of Hebrew, which has many bound morp
 **Trivia break!**
 There is a **single** concept/meaning that is conveyed by a **bound morpheme in English** and a **free morpheme in Hebrew** (it's usually the other way around!), can you find it? Hint in the comments.
 
+Another major challenge in segmenting Hebrew is that some morphemes are covert (due to morpho-phonolog
+
 ### Working through the challenges to find... more challenges...
 The widely-accepted conclusion is that in order to parse Hebrew correctly we must first segment each word to its composing morphemes as part of necessary pre-processing, and then we can continue with the regular pipeline like we do for English. 
 However, it's usually the case that a single word would have more than one possible segmentation, non of which is a-priori more likely, and the correct one is only recoverable in **context**.... see where this is going, right?
@@ -45,8 +47,8 @@ After a long introduction we can now say that we focus on the 2nd point from BER
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU3MDE3NzYxMSwtMTYzNDQ0OTAwMywxMz
-Q3OTU3ODU5LDEzOTEzNjkyNDAsLTMzNTE5MjE0MywtMzE4MTgx
-NTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1Myw1Nj
-E3MzY4MjksMTI3NzE0MDgwM119
+eyJoaXN0b3J5IjpbLTE3NTYyODYxNzIsLTU3MDE3NzYxMSwtMT
+YzNDQ0OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjkyNDAsLTMzNTE5
+MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC
+04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
 -->
