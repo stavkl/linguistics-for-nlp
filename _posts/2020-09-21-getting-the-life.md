@@ -25,9 +25,9 @@ The main difference between English and Hebrew in this sense is that Hebrew has 
 This is absolutely crucial for the analysis of Hebrew, which has many bound morphemes that carry their own POS-tag.
 
 **Trivia break!**
-There is a **single** concept/meaning for which the relevant morpheme is **bound in English** and **free in Hebrew**? Really, this happens only once. Hint in the comments.
+There is a **single** concept/meaning for which there's a **bound morpheme in English** and a **free morpheme in Hebrew**, can you find it? Hint in the comments.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2OTE4OTA2NDQsMjA1NTE0MDk1OCwtOD
-U0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4MDNdfQ==
+eyJoaXN0b3J5IjpbLTczNjM4NTExOSwyMDU1MTQwOTU4LC04NT
+Q4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
 -->
