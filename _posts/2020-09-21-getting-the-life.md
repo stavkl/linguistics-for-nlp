@@ -29,10 +29,11 @@ There is a **single** concept/meaning that is conveyed by a **bound morpheme in 
 
 ### Working through the challenges to find... more challenges...
 The widely-accepted conclusion is that in order to parse Hebrew correctly we must first segment each word to its composing morphemes as part of necessary pre-processing, and then we can continue with the regular pipeline like we do for English. 
-However, it's usually the case that a single word would have more than one possible segmentation, non of which is a-priori more likely, and the correct one is only recoverable in context....<br> 
-se
+However, it's usually the case that a single word would have more than one possible segmentation, non of which is a-priori more likely, and the correct one is only recoverable in **context**.... see where this is going, right?
+
+### Along comes BERT
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM2NTQ1NTEwNCwtMzE4MTgxNTQsMTc2MD
+eyJoaXN0b3J5IjpbLTMzNTE5MjE0MywtMzE4MTgxNTQsMTc2MD
 UyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1Myw1NjE3MzY4Mjks
 MTI3NzE0MDgwM119
 -->
