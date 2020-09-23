@@ -33,7 +33,7 @@ However, it's usually the case that a single word would have more than one possi
 
 ### Along came BERT
 Not going to introduce BERT here, it took the world by storm and since then has been used for pretty much anything - turning regular rocks into gold, curing the blind, bringing people back from the dead... and wasn't trained on any of these tasks, what a guy!<br>
-*(Hi, this is me being totally sarcastic because it's my blog. As you'll see here and in the future, I'm not the biggest fan of huge-but-dumb models that happen to work well for English)*
+*(Hi, this is me being totally sarcastic because it's my blog. As you'll see here and in the future, I'm not the biggest fan of huge-but-dumb models that happen to work well for English)*<br>
 So BERT has four important qualities that make it interesting for multi-tagging Hebrew:
 1. It's contextualized and remember that the correct segmentation is relies on context
 2. It breaks words into pieces (called word-pieces), which is needed in the pre-processing stage.
@@ -42,7 +42,8 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 
 ### And 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM0Nzk1Nzg1OSwxMzkxMzY5MjQwLC0zMz
-UxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAwNjgsMjA1NTE0MDk1
-OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4MDNdfQ==
+eyJoaXN0b3J5IjpbLTE2MzQ0NDkwMDMsMTM0Nzk1Nzg1OSwxMz
+kxMzY5MjQwLC0zMzUxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAw
+NjgsMjA1NTE0MDk1OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNz
+cxNDA4MDNdfQ==
 -->
