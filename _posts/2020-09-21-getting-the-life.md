@@ -36,9 +36,10 @@ Not going to introduce BERT here, it took the world by storm and since then has 
 *(Hi, this is me being totally sarcastic because it's my blog. As you'll see here and in the future, I'm not the biggest fan of huge-but-dumb models that happen to work well for English)*
 So BERT has four important qualities that make it interesting for multi-tagging Hebrew:
 1. It's contextualized and remember that the correct segmentation is relies on context
-2. It breaks words into pieces (called word-pieces), which works well 
+2. It breaks words into pieces (called word-pieces), which is needed in the pre-processing stage.
+3. It's multilingual and the Hebrew part is trained on a larger corpus t
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MDU5ODMzMTYsMTM5MTM2OTI0MCwtMz
-M1MTkyMTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LDIwNTUxNDA5
-NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQwODAzXX0=
+eyJoaXN0b3J5IjpbMTE3ODgzNzA4NywxMzkxMzY5MjQwLC0zMz
+UxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAwNjgsMjA1NTE0MDk1
+OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4MDNdfQ==
 -->
