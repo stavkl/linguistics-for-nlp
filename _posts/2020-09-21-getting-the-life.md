@@ -32,8 +32,9 @@ The widely-accepted conclusion is that in order to parse Hebrew correctly we mus
 However, it's usually the case that a single word would have more than one possible segmentation, non of which is a-priori more likely, and the correct one is only recoverable in **context**.... see where this is going, right?
 
 ### Along came BERT
+Don't 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE4OTE1MzUwMiwtMzM1MTkyMTQzLC0zMT
-gxODE1NCwxNzYwNTIwMDY4LDIwNTUxNDA5NTgsLTg1NDgwOTUz
-LDU2MTczNjgyOSwxMjc3MTQwODAzXX0=
+eyJoaXN0b3J5IjpbLTE2OTE4Njk4MjgsLTMzNTE5MjE0MywtMz
+E4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1
+Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
 -->
