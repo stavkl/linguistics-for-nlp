@@ -33,9 +33,9 @@ However, it's usually the case that a single word would have more than one possi
 
 ### Along came BERT
 Not going to introduce BERT here, it took the world by storm and since then has been used for pretty much anything - turning regular rocks into gold, curing the blind, bringing people back from the dead... and wasn't trained on any of these tasks, what a guy!<br>
-*(Hi, this is me being totally sarcastic because it's my blog. I'm not the biggest fan of huge models being praised for reading all t)*
+*(Hi, this is me being totally sarcastic because it's my blog. I'm not the biggest fan of huge-but-dumb models that happen to work well on English)*
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDkyMTIwNzExLC0zMzUxOTIxNDMsLTMxOD
-E4MTU0LDE3NjA1MjAwNjgsMjA1NTE0MDk1OCwtODU0ODA5NTMs
-NTYxNzM2ODI5LDEyNzcxNDA4MDNdfQ==
+eyJoaXN0b3J5IjpbLTE3NzU3Nzc3NDEsLTMzNTE5MjE0MywtMz
+E4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1
+Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
 -->
