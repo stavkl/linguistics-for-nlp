@@ -28,9 +28,9 @@ This is absolutely crucial for the analysis of Hebrew, which has many bound morp
 There is a **single** concept/meaning that is conveyed by a **bound morpheme in English** and a **free morpheme in Hebrew** (it's usually the other way around!), can you find it? Hint in the comments.
 
 ### Working through the challenges
-
+The widely-accepted conclusion is that in order to parse Hebrew we must first segment each word to its composing morphemes as part
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE0MTY3MDcwOSwxNzYwNTIwMDY4LDIwNT
+eyJoaXN0b3J5IjpbLTczMjMzODU2OCwxNzYwNTIwMDY4LDIwNT
 UxNDA5NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQwODAz
 XX0=
 -->
