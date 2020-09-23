@@ -36,9 +36,9 @@ Not going to introduce BERT here, it took the world by storm and since then has 
 *(Hi, this is me being totally sarcastic because it's my blog. As you'll see here and in the future, I'm not the biggest fan of huge-but-dumb models that happen to work well for English)*
 So BERT has four important qualities that make it interesting for multi-tagging Hebrew:
 1. It's contextualized and remember that the correct segmentation is relies on context
-2. It breaks 
+2. It breaks words into pieces (called word-pieces), which works well 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE1Njk2NzkzLDEzOTEzNjkyNDAsLTMzNT
-E5MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4
-LC04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
+eyJoaXN0b3J5IjpbLTE5MDU5ODMzMTYsMTM5MTM2OTI0MCwtMz
+M1MTkyMTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LDIwNTUxNDA5
+NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQwODAzXX0=
 -->
