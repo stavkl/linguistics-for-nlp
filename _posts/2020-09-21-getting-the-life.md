@@ -27,7 +27,7 @@ This is absolutely crucial for the analysis of Hebrew, which has many bound morp
 **Trivia break!**
 There is a **single** concept/meaning that is conveyed by a **bound morpheme in English** and a **free morpheme in Hebrew** (it's usually the other way around!), can you find it? Hint in the comments.
 
-Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules, and cannot be recovered from the surface form alone
+Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules, so the internal structure of a word doesn't necessarily correspond to the surface form. For example the word בבית /
 
 ### Working through the challenges to find... more challenges...
 The widely-accepted conclusion is that in order to parse Hebrew correctly we must first segment each word to its composing morphemes as part of necessary pre-processing, and then we can continue with the regular pipeline like we do for English. 
@@ -47,7 +47,7 @@ After a long introduction we can now say that we focus on the 2nd point from BER
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0ODUwNDUxMDMsLTU3MDE3NzYxMSwtMT
+eyJoaXN0b3J5IjpbLTE2NDExNjQzMzUsLTU3MDE3NzYxMSwtMT
 YzNDQ0OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjkyNDAsLTMzNTE5
 MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC
 04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
