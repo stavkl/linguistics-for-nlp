@@ -40,10 +40,11 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 3. It's multilingual and the Hebrew part of it is trained on a larger corpus than previous pre-neural Hebrew models used.
 4. It's really important for reviewers
 
-### And 
+### And here's where the study actually begins..
+After a long introduction we can now say that we focus on the 2nd point from th
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzQ0NDkwMDMsMTM0Nzk1Nzg1OSwxMz
-kxMzY5MjQwLC0zMzUxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAw
-NjgsMjA1NTE0MDk1OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNz
-cxNDA4MDNdfQ==
+eyJoaXN0b3J5IjpbMTE1MTM3MDUxMCwtMTYzNDQ0OTAwMywxMz
+Q3OTU3ODU5LDEzOTEzNjkyNDAsLTMzNTE5MjE0MywtMzE4MTgx
+NTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1Myw1Nj
+E3MzY4MjksMTI3NzE0MDgwM119
 -->
