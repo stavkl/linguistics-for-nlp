@@ -41,9 +41,9 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 4. It's really important for reviewers
 
 ### And here's where the study actually begins..
-After a long introduction we can now say that we focus on the 2nd point from th
+After a long introduction we can now say that we focus on the 2nd point from BERT's qualities, and that is its segmentation process. We have established that we need segmentation of words, 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE1MTM3MDUxMCwtMTYzNDQ0OTAwMywxMz
+eyJoaXN0b3J5IjpbMTM3ODQ2ODk3NiwtMTYzNDQ0OTAwMywxMz
 Q3OTU3ODU5LDEzOTEzNjkyNDAsLTMzNTE5MjE0MywtMzE4MTgx
 NTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1Myw1Nj
 E3MzY4MjksMTI3NzE0MDgwM119
