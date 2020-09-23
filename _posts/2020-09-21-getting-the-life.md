@@ -24,10 +24,10 @@ In NLP, a word is a space-delimited sequence of characters. Each word is compose
 The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don't, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multitag would be CONJ^REL\^VB with the '^' indicating the correct order.
 This is absolutely crucial for the analysis of Hebrew, which has many bound morphemes that carry their own POS-tag.
 
-#### Trivia break!
-What is the **single** concept/meaning that its relevant morpheme is **bound in English** and **free in Hebrew**? Really, this happens only once. Hint in the comments.
+**Trivia break!**
+There is a **single** concept/meaning for which the relevant morpheme is **bound in English** and **free in Hebrew**? Really, this happens only once. Hint in the comments.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA1NTE0MDk1OCwtODU0ODA5NTMsNTYxNz
-M2ODI5LDEyNzcxNDA4MDNdfQ==
+eyJoaXN0b3J5IjpbLTE2OTE4OTA2NDQsMjA1NTE0MDk1OCwtOD
+U0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4MDNdfQ==
 -->
