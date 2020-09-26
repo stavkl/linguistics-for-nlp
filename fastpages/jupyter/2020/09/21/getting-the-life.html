@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Getting the | Linguistics for NLP</title>
+<title>Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology? | Linguistics for NLP</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Getting the" />
+<meta property="og:title" content="Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="What should have been a poster at ISCOL" />
 <meta property="og:description" content="What should have been a poster at ISCOL" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-09-21T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"What should have been a poster at ISCOL","@type":"BlogPosting","headline":"Getting the","dateModified":"2020-09-21T00:00:00-05:00","datePublished":"2020-09-21T00:00:00-05:00","url":"https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html"},"image":"https://stavkl.github.io/linguistics-for-nlp/images/bert.png","@context":"https://schema.org"}</script>
+{"description":"What should have been a poster at ISCOL","@type":"BlogPosting","headline":"Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?","dateModified":"2020-09-21T00:00:00-05:00","datePublished":"2020-09-21T00:00:00-05:00","url":"https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html"},"image":"https://stavkl.github.io/linguistics-for-nlp/images/bert.png","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/linguistics-for-nlp/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://stavkl.github.io/linguistics-for-nlp/feed.xml" title="Linguistics for NLP" /><link rel="shortcut icon" type="image/x-icon" href="/linguistics-for-nlp/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -72,7 +72,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Getting the</h1><p class="page-description">What should have been a poster at ISCOL</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-21T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?</h1><p class="page-description">What should have been a poster at ISCOL</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-21T00:00:00-05:00" itemprop="datePublished">
         Sep 21, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -97,9 +97,11 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <h2 id="this-post-reviews-the-paper-i-presented-at-sigmorphon-this-year-see-link-in-the-publications-section-that-should-have-been-presented-at-the-iscol-conference-too-but-eventually-didnt"><em>This post reviews the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn’t.</em></h2>
+    <p><em>This post reviews the paper I presented at SIGMORPHON this year (see link in the publications section), that should have been presented at the ISCOL conference too but eventually didn’t.</em></p>
+
+<hr />
 <h3 id="how-adequate-are-word-pieces-for-modelling-complex-morphology">How adequate are word-pieces for modelling complex morphology?</h3>
-<p><strong>tldr;</strong> 
+<p><strong>tldr;</strong> <br />
 not at all.</p>
 
 <p>The task: Part-of-speech Tagging<br />
@@ -109,12 +111,15 @@ The means: fine-tuning Multilingual BERT<br /></p>
 
 <h3 id="the-challenges-with-pos-tagging-in-hebrew">The challenges with POS-tagging in Hebrew</h3>
 <p>This section only deals with the challenges in POS-tagging Hebrew, and in another post I’ll review the challenges of processing languages with non-concatenative morphology in general.
-In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one <strong>morpheme</strong>. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix <em>-s</em>, while a free morpheme can stand on its own, like the coordinator <em>and</em>. 
-The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence <em>and when I saw</em> (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don’t, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the <strong>multi-tag</strong>, which is a POS-tag composed of POS-tags. In the example the multi-tag would be CONJ^REL\^VB with the ‘^’ indicating the correct order.
+In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one <strong>morpheme</strong>. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix <em>-s</em>, while a free morpheme can stand on its own, like the coordinator <em>and</em>.</p>
+
+<p>The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence <em>and when I saw</em> (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don’t, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the <strong>multi-tag</strong>, which is a POS-tag composed of POS-tags. In the example the multi-tag would be CONJ^REL\^VB with the ‘^’ indicating the correct order.
 This is absolutely crucial for the analysis of Hebrew, which has many bound morphemes that carry their own POS-tag.</p>
 
-<p><strong>Trivia break!</strong>
+<blockquote>
+  <p><strong>Trivia break!</strong><br />
 There is a <strong>single</strong> concept/meaning that is conveyed by a <strong>bound morpheme in English</strong> and a <strong>free morpheme in Hebrew</strong> (it’s usually the other way around!), can you find it? Hint in the comments.</p>
+</blockquote>
 
 <p>Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules), so the internal structure of a word doesn’t necessarily correspond to the surface form. For example the word ב-בית /ba-bayit/ (‘in the house’) has two morphemes on the surface - in + house, and the definite article is covert (if there wasn’t a definite article it would be בבית /b<strong>e</strong>-bayit/).</p>
 
@@ -142,15 +147,11 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 <p>Since the word-pieces themselves don’t reflect the actual morphemes, we hypothesize that segmentation into word-pieces will deteriorate performance for multi-tagging Hebrew. By deteriorating performance we mean that either the accuracy levels will go down, or access to internal structure will be lost. We show how incorporating linguistic knowledge helps maintain access to internal structure as well as improving overall accuracy.</p>
 
 <h3 id="some-experimental-settings">Some Experimental Settings</h3>
-<p>The running example throughout will be of the word בבית /’in the house’/, for which the relevant multi-tag is IN^DEF\^NN and the BPE . Broadly speaking, because we only fine tune BERT and not changing the segmentation algorithm (something that would require pre-training from scratch) all we have left to play with are the tags that the word-pieces (WPs from now) receive. Here there are two strategies, one where all the WPs of a given word get the same tag, and another where each WP can get a different tag. The common practice is to give all the WPs the same tag, so let’s start with that strategy.
+<p>The running example throughout will be of the word בבית /’in the house’/, for which the relevant multi-tag is IN^DEF\^NN and the BPE . Broadly speaking, because we only fine tune BERT and not changing the segmentation algorithm (something that would require pre-training from scratch) all we have left to play with are the tags that the word-pieces (WPs from now) receive. Here there are two strategies, one where all the WPs of a given word get the same tag, and another where each WP can get a different tag. The common practice is to give all the WPs the same tag, so let’s start with that strategy.<br />
 <strong>Predicting the entire multi-tag at word level</strong></p>
 <figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/raw.JPG" width="25%" align="right" alt="" />
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt leo vel lorem varius, non bibendum lectus volutpat. Suspendisse id augue et ipsum iaculis luctus. Vivamus luctus, ligula euismod pharetra luctus, dolor ex dictum velit, ut tempus mauris purus vel ante. Proin euismod ante sed magna ultrices rhoncus. Nulla et sollicitudin orci. Pellentesque at libero ex. Duis nec lorem eu leo euismod tempus. Fusce semper ultrices felis, id lacinia turpis faucibus nec. In posuere pellentesque arcu accumsan pharetra.
-
-
-
-
-
 </figure>
 
   </div><a class="u-url" href="/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html" hidden></a>
