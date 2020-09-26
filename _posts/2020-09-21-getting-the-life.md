@@ -29,7 +29,7 @@ There is a **single** concept/meaning that is conveyed by a **bound morpheme in 
 
 Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules), so the internal structure of a word doesn't necessarily correspond to the surface form. For example the word ב-בית /ba-bayit/ ('in the house') has two morphemes on the surface - in + house, and the definite article is covert (if there wasn't a definite article it would be בבית /b**e**-bayit/).
 
-Lastly, Hebrew has an intertwined nature (a.k.a non-concatenative morphology), which for our purposes means that words can't necessarily be segmented lineraly.
+Lastly, Hebrew has an intertwined nature (a.k.a non-concatenative morphology), which for our purposes means that words can't necessarily be segmented linearly.
 
 ### Working through the challenges to find... more challenges...
 The widely-accepted conclusion is that in order to parse Hebrew correctly we must first segment each word to its composing morphemes as part of necessary pre-processing, and then we can continue with the regular pipeline like we do for English. 
@@ -49,9 +49,9 @@ After a long introduction we can now say that we focus on the 2nd point from BER
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODUzODc5NjQ0LDExODEwMzAxNDgsLTU3MD
-E3NzYxMSwtMTYzNDQ0OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjky
-NDAsLTMzNTE5MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMD
-U1MTQwOTU4LC04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgw
-M119
+eyJoaXN0b3J5IjpbMTgzNjE1NDUyMiwxMTgxMDMwMTQ4LC01Nz
+AxNzc2MTEsLTE2MzQ0NDkwMDMsMTM0Nzk1Nzg1OSwxMzkxMzY5
+MjQwLC0zMzUxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAwNjgsMj
+A1NTE0MDk1OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4
+MDNdfQ==
 -->
