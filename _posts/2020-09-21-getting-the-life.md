@@ -21,7 +21,7 @@ The means: fine-tuning Multilingual BERT<br>
 ### The challenge(s) with POS-tagging in Hebrew
 This section only deals with the challenges in POS-tagging Hebrew, and in another post I'll review the challenges of processing languages with non-concatenative morphology in general.
 In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix *-s*, while a free morpheme can stand on its own, like the coordinator *and*. 
-The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don't, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multitag would be CONJ^REL\^VB with the '^' indicating the correct order.
+The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don't, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multi-tag would be CONJ^REL\^VB with the '^' indicating the correct order.
 This is absolutely crucial for the analysis of Hebrew, which has many bound morphemes that carry their own POS-tag.
 
 **Trivia break!**
@@ -47,8 +47,9 @@ After a long introduction we can now say that we focus on the 2nd point from BER
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE4MTAzMDE0OCwtNTcwMTc3NjExLC0xNj
-M0NDQ5MDAzLDEzNDc5NTc4NTksMTM5MTM2OTI0MCwtMzM1MTky
-MTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LDIwNTUxNDA5NTgsLT
-g1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQwODAzXX0=
+eyJoaXN0b3J5IjpbMTQ4OTA2NDc5LDExODEwMzAxNDgsLTU3MD
+E3NzYxMSwtMTYzNDQ0OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjky
+NDAsLTMzNTE5MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMD
+U1MTQwOTU4LC04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgw
+M119
 -->
