@@ -27,7 +27,9 @@ This is absolutely crucial for the analysis of Hebrew, which has many bound morp
 **Trivia break!**
 There is a **single** concept/meaning that is conveyed by a **bound morpheme in English** and a **free morpheme in Hebrew** (it's usually the other way around!), can you find it? Hint in the comments.
 
-Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules), so the internal structure of a word doesn't necessarily correspond to the surface form. For example the word ב-בית /ba-bayit/ ('in the house') has two morphemes on the surface - in + house, and the definite article is covert (if there wasn't a definite article it would be בבית /b**e**-bayit/)
+Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules), so the internal structure of a word doesn't necessarily correspond to the surface form. For example the word ב-בית /ba-bayit/ ('in the house') has two morphemes on the surface - in + house, and the definite article is covert (if there wasn't a definite article it would be בבית /b**e**-bayit/).
+
+Lastly, Hebrew has an intertwined nature (a.k.a non-concatenative morphology), which for our purposes 
 
 ### Working through the challenges to find... more challenges...
 The widely-accepted conclusion is that in order to parse Hebrew correctly we must first segment each word to its composing morphemes as part of necessary pre-processing, and then we can continue with the regular pipeline like we do for English. 
@@ -47,7 +49,7 @@ After a long introduction we can now say that we focus on the 2nd point from BER
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5OTczNjEwOTYsMTE4MTAzMDE0OCwtNT
+eyJoaXN0b3J5IjpbLTIwODY0NDc1ODAsMTE4MTAzMDE0OCwtNT
 cwMTc3NjExLC0xNjM0NDQ5MDAzLDEzNDc5NTc4NTksMTM5MTM2
 OTI0MCwtMzM1MTkyMTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LD
 IwNTUxNDA5NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQw
