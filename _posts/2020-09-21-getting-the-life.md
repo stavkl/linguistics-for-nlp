@@ -53,14 +53,16 @@ Since the word-pieces themselves don't reflect the actual morphemes, we hypothes
 ### Some Experimental Settings
 The running example throughout will be of the word בבית /'in the house'/, for which the relevant multi-tag is IN^DEF\^NN and the BPE . Broadly speaking, because we only fine tune BERT and not changing the segmentation algorithm (something that would require pre-training from scratch) all we have left to play with are the tags that the word-pieces (WPs from now) receive. Here there are two strategies, one where all the WPs of a given word get the same tag, and another where each WP can get a different tag. The common practice is to give all the WPs the same tag, so let's start with that strategy.
 **Predicting the entire multi-tag at word level**
-<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/raw.jpg" width="50%" align="right" alt="">
+<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/raw.JPG" width="25%" align="right" alt="">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt leo vel lorem varius, non bibendum lectus volutpat. Suspendisse id augue et ipsum iaculis luctus. Vivamus luctus, ligula euismod pharetra luctus, dolor ex dictum velit, ut tempus mauris purus vel ante. Proin euismod ante sed magna ultrices rhoncus. Nulla et sollicitudin orci. Pellentesque at libero ex. Duis nec lorem eu leo euismod tempus. Fusce semper ultrices felis, id lacinia turpis faucibus nec. In posuere pellentesque arcu accumsan pharetra.
 
 
 
 
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIzMDMyNzMxNCwyMDQ2NTQ5MTEzLC04ND
+eyJoaXN0b3J5IjpbMTc5Njg5NzUzOCwyMDQ2NTQ5MTEzLC04ND
 c0Njk0MDAsMTgwMDU2NDAwMCwtMTEyMDI4NTg4OSwxMDMxNTU0
 NDc3LDE5ODQ4Mjg1NDgsMTE4MTAzMDE0OCwtNTcwMTc3NjExLC
 0xNjM0NDQ5MDAzLDEzNDc5NTc4NTksMTM5MTM2OTI0MCwtMzM1
