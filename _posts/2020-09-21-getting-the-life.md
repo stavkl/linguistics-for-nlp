@@ -51,13 +51,15 @@ After a long introduction we can now say that this study focuses on the 2nd poin
 Since the word-pieces themselves don't reflect the actual morphemes, we hypothesize that segmentation into word-pieces will deteriorate performance for multi-tagging Hebrew. By deteriorating performance we mean that either the accuracy levels will go down, or access to internal structure will be lost. We show how incorporating linguistic knowledge helps maintain access to internal structure as well as improving overall accuracy.
 
 ### Some Experimental Settings
+The
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMjAyODU4ODksMTAzMTU1NDQ3NywxOT
-g0ODI4NTQ4LDExODEwMzAxNDgsLTU3MDE3NzYxMSwtMTYzNDQ0
-OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjkyNDAsLTMzNTE5MjE0My
-wtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4
-MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgwM119
+eyJoaXN0b3J5IjpbLTI4MzE4OTkxMCwtMTEyMDI4NTg4OSwxMD
+MxNTU0NDc3LDE5ODQ4Mjg1NDgsMTE4MTAzMDE0OCwtNTcwMTc3
+NjExLC0xNjM0NDQ5MDAzLDEzNDc5NTc4NTksMTM5MTM2OTI0MC
+wtMzM1MTkyMTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LDIwNTUx
+NDA5NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQwODAzXX
+0=
 -->
