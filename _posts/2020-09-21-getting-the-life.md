@@ -48,13 +48,13 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 After a long introduction we can now say that this study focuses on the 2nd point from BERT's qualities, and that is its segmentation process. We have established that we need segmentation of words, and implicitly meant that we were looking for the **correct** morphological segmentation. But what if we can't get the correct segmentation? can we safely use BERT's segmentation and succeed on a relatively simple task like POS-tagging?
 
 ### Hypothesis and Approach
-Since the word-pieces don't reflect the actual morphemes, we hypothesized that segmentation into word-pieces will deteriorate performance for multi-tagging Hebrew. 
+Since the word-pieces don't reflect the actual morphemes, we hypothesized that segmentation into word-pieces will deteriorate performance for multi-tagging Hebrew. However
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk4NDgyODU0OCwxMTgxMDMwMTQ4LC01Nz
-AxNzc2MTEsLTE2MzQ0NDkwMDMsMTM0Nzk1Nzg1OSwxMzkxMzY5
-MjQwLC0zMzUxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAwNjgsMj
-A1NTE0MDk1OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4
-MDNdfQ==
+eyJoaXN0b3J5IjpbMTAwMzUyNzAzNCwxOTg0ODI4NTQ4LDExOD
+EwMzAxNDgsLTU3MDE3NzYxMSwtMTYzNDQ0OTAwMywxMzQ3OTU3
+ODU5LDEzOTEzNjkyNDAsLTMzNTE5MjE0MywtMzE4MTgxNTQsMT
+c2MDUyMDA2OCwyMDU1MTQwOTU4LC04NTQ4MDk1Myw1NjE3MzY4
+MjksMTI3NzE0MDgwM119
 -->
