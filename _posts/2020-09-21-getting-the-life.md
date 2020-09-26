@@ -45,11 +45,13 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 4. It's really important for reviewers.
 
 ### And here's where the study actually begins..
-After a long introduction we can now say that this study focuses on the 2nd point from BERT's qualities, and that is its segmentation process. We have established that we need segmentation of words, and implicitly meant that we were looking for the **correct** morphological segmentation. But what if we can't have an accurate segmentation? can we safely use BERT's segmentation and succeed on multi-tagging task?
+After a long introduction we can now say that this study focuses on the 2nd point from BERT's qualities, and that is its segmentation process. We have established that we need segmentation of words, and implicitly meant that we were looking for the **correct** morphological segmentation. But what if we can't get the correct segmentation? can we safely use BERT's segmentation and succeed on a relatively simple task like POS-tagging?
+
+### Hyp
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA3NTQwNDk3MywxMTgxMDMwMTQ4LC01Nz
+eyJoaXN0b3J5IjpbMTM4NjAyNTQyNywxMTgxMDMwMTQ4LC01Nz
 AxNzc2MTEsLTE2MzQ0NDkwMDMsMTM0Nzk1Nzg1OSwxMzkxMzY5
 MjQwLC0zMzUxOTIxNDMsLTMxODE4MTU0LDE3NjA1MjAwNjgsMj
 A1NTE0MDk1OCwtODU0ODA5NTMsNTYxNzM2ODI5LDEyNzcxNDA4
