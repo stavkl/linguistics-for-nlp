@@ -18,16 +18,16 @@ The language: Hebrew<br>
 The data: [The Hebrew treebank](https://github.com/OnlpLab/Hebrew_UD)<br>
 The means: fine-tuning Multilingual BERT<br>
 
-### The challenge(s) with POS-tagging in Hebrew
+### The challenges with POS-tagging in Hebrew
 This section only deals with the challenges in POS-tagging Hebrew, and in another post I'll review the challenges of processing languages with non-concatenative morphology in general.
 In NLP, a word is a space-delimited sequence of characters. Each word is composed of at least one **morpheme**. A morpheme is the smallest unit of meaning, and it comes in two shapes: bound and free. A bound morpheme has to be part of a word, like the English plural suffix *-s*, while a free morpheme can stand on its own, like the coordinator *and*. 
-The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don't, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multitag**, which is a POS-tag composed of POS-tags. In the example the multi-tag would be CONJ^REL\^VB with the '^' indicating the correct order.
+The main difference between English and Hebrew in this sense is that Hebrew has a much higher morphemes-to-word ratio than English, so for example the sequence *and when I saw* (4 free morphemes in English) is expressed in Hebrew using a single word - וכשראיתי /ve-kshe-raiti/ (and - bound, when - bound, saw.1st per.sg - free). Each morpheme in the Hebrew word has a different POS tag, which one should we choose? Easy, we don't, we take them all (otherwise we loose valuable syntactic information that we do encode for English) - Introducing the **multi-tag**, which is a POS-tag composed of POS-tags. In the example the multi-tag would be CONJ^REL\^VB with the '^' indicating the correct order.
 This is absolutely crucial for the analysis of Hebrew, which has many bound morphemes that carry their own POS-tag.
 
 **Trivia break!**
 There is a **single** concept/meaning that is conveyed by a **bound morpheme in English** and a **free morpheme in Hebrew** (it's usually the other way around!), can you find it? Hint in the comments.
 
-Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules, so the internal structure of a word doesn't necessarily correspond to the surface form. For example the word ב-בית /ba-bayit/ ('in the house') has two morphemes on the surface - in + house, and the definite article is covert (if there wasn't a definite article it would be בבית /b**e**-bayit/)
+Another major challenge in Hebrew is that some morphemes are covert (due to orthographic rules), so the internal structure of a word doesn't necessarily correspond to the surface form. For example the word ב-בית /ba-bayit/ ('in the house') has two morphemes on the surface - in + house, and the definite article is covert (if there wasn't a definite article it would be בבית /b**e**-bayit/)
 
 ### Working through the challenges to find... more challenges...
 The widely-accepted conclusion is that in order to parse Hebrew correctly we must first segment each word to its composing morphemes as part of necessary pre-processing, and then we can continue with the regular pipeline like we do for English. 
@@ -47,9 +47,9 @@ After a long introduction we can now say that we focus on the 2nd point from BER
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ4OTA2NDc5LDExODEwMzAxNDgsLTU3MD
-E3NzYxMSwtMTYzNDQ0OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjky
-NDAsLTMzNTE5MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMD
-U1MTQwOTU4LC04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgw
-M119
+eyJoaXN0b3J5IjpbLTE5OTczNjEwOTYsMTE4MTAzMDE0OCwtNT
+cwMTc3NjExLC0xNjM0NDQ5MDAzLDEzNDc5NTc4NTksMTM5MTM2
+OTI0MCwtMzM1MTkyMTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LD
+IwNTUxNDA5NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQw
+ODAzXX0=
 -->
