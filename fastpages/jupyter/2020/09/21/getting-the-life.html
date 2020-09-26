@@ -78,7 +78,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      7 min read
     
 </span></p>
 
@@ -152,8 +152,24 @@ So BERT has four important qualities that make it interesting for multi-tagging 
 <p><strong>Predicting the entire multi-tag at word level</strong></p>
 <figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/raw.JPG" width="25%" align="right" alt="" /></figure>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt leo vel lorem varius, non bibendum lectus volutpat. Suspendisse id augue et ipsum iaculis luctus. Vivamus luctus, ligula euismod pharetra luctus, dolor ex dictum velit, ut tempus mauris purus vel ante. Proin euismod ante sed magna ultrices rhoncus. Nulla et sollicitudin orci. Pellentesque at libero ex. Duis nec lorem eu leo euismod tempus. Fusce semper ultrices felis, id lacinia turpis faucibus nec. In posuere pellentesque arcu accumsan pharetra.</p>
+<p>In this setting we predict for each WP the complete multi-tag of the entire word, that is, for the WP ‘ב’ predict the multi tag IN^DEF^NN and also for the second WP ‘##בית’. We choose the prediction of the first WP to be the multi-tag for the whole word.
+On the upside, this is the easiest method to apply, but nothing comes without a price - we cannot generalize to new unseen tags, so if the model haven’t seen the tag IN^DEF^NN during fine-tuning it won’t be able to predict it in the evaluation. Also, the inner structure of the word remain inaccessible - eventually the model’s prediction is that the word בבית has a multi-tag of IN^DEF^NN, but we can’t infer which part of the word contributed which tag, we can only tell that it’s there. For POS tagging that might not make much of a difference, but for other tasks down the pipeline, like NER, it’s really important to recognize where a proper noun begins and ends, for example.
+The F1 score for this setting is <strong>94.09</strong>. We can do better! We just need to be a little more sophisticated with the linguistic knowledge that we have and still didn’t use.</p>
 
+<p><strong>Predicting Prefix (multi)-tag and the host (multi)-tag</strong></p>
+<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/prefixhost.JPG" width="25%" align="right" alt="" /></figure>
+<p>Hebrew words, as described before, are composed of morphemes, some morphemes come before the stem (called prefixes, like <em>dis-</em> in English), and some come after (like <em>-ness</em>). While in English affixes don’t usually carry a separate POS-tag, in Hebrew they do.
+In this section we use the fact that we can separate, fairly easily, the prefix from the rest of the word (which we’ll call the host). Separating the suffix is also possible but not as easily, so we didn’t do that.</p>
+
+<p>We fine-tune the model twice, once for the prefix classifier and once for the host classifier. Here the prefix classifier only predicts prefixes - it predicts IN^DEF<br />
+for both WPs, and the host classifier predicts NN for both WPs. We then combine the results to a single tag IN^DEF^NN.</p>
+
+<p>Because we split and reassemble the tags we can generalize better to unseen tags, and we also get more access to the inner structure as the distinction between prefix and host is essentially a distinction between function and content (respectively), and it makes sense to fine-tune it separately. It yields a slightly better F1 score of <strong>94.22</strong>.</p>
+
+<p><strong>Strategy Summary</strong></p>
+<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/strategy1.JPG" width="100%" align="center" alt="" /></figure>
+
+<p>So far we see that incorporating linguistic knowledge can help in both accuracy and access to internal structure. Next we’ll see what we can get when we step out of the common practices.</p>
 
   </div><a class="u-url" href="/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html" hidden></a>
 </article>
