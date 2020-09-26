@@ -51,7 +51,7 @@ After a long introduction we can now say that this study focuses on the 2nd poin
 Since the word-pieces themselves don't reflect the actual morphemes, we hypothesize that segmentation into word-pieces will deteriorate performance for multi-tagging Hebrew. By deteriorating performance we mean that either the accuracy levels will go down, or access to internal structure will be lost. We show how incorporating linguistic knowledge helps maintain access to internal structure as well as improving overall accuracy.
 
 ### Some Experimental Settings
-The running example throughout will be of the word בבית /'in the house'/, for which the relevant multi-tag is IN^DEF\^NN. Broadly speaking, because we only fine tune BERT and not changing the segmentation algorithm (something that would require pre-training from scratch) all we have left to play with are the tags that the word-pieces (WPs from now) receive. Here there are two strategies, one where all the WPs of a given word get the same tag, and another where each WP can get a different tag. The common practice is to give all the WPs the same tag.
+The running example throughout will be of the word בבית /'in the house'/, for which the relevant multi-tag is IN^DEF\^NN. Broadly speaking, because we only fine tune BERT and not changing the segmentation algorithm (something that would require pre-training from scratch) all we have left to play with are the tags that the word-pieces (WPs from now) receive. Here there are two strategies, one where all the WPs of a given word get the same tag, and another where each WP can get a different tag. The common practice is to give all the WPs the same tag, so let's start 
 
 
 
@@ -59,10 +59,10 @@ The running example throughout will be of the word בבית /'in the house'/, fo
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MzU5MTMzNzUsMTgwMDU2NDAwMCwtMT
-EyMDI4NTg4OSwxMDMxNTU0NDc3LDE5ODQ4Mjg1NDgsMTE4MTAz
-MDE0OCwtNTcwMTc3NjExLC0xNjM0NDQ5MDAzLDEzNDc5NTc4NT
-ksMTM5MTM2OTI0MCwtMzM1MTkyMTQzLC0zMTgxODE1NCwxNzYw
-NTIwMDY4LDIwNTUxNDA5NTgsLTg1NDgwOTUzLDU2MTczNjgyOS
-wxMjc3MTQwODAzXX0=
+eyJoaXN0b3J5IjpbLTg0NzQ2OTQwMCwxODAwNTY0MDAwLC0xMT
+IwMjg1ODg5LDEwMzE1NTQ0NzcsMTk4NDgyODU0OCwxMTgxMDMw
+MTQ4LC01NzAxNzc2MTEsLTE2MzQ0NDkwMDMsMTM0Nzk1Nzg1OS
+wxMzkxMzY5MjQwLC0zMzUxOTIxNDMsLTMxODE4MTU0LDE3NjA1
+MjAwNjgsMjA1NTE0MDk1OCwtODU0ODA5NTMsNTYxNzM2ODI5LD
+EyNzcxNDA4MDNdfQ==
 -->
