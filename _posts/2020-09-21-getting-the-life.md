@@ -51,16 +51,16 @@ After a long introduction we can now say that this study focuses on the 2nd poin
 Since the word-pieces themselves don't reflect the actual morphemes, we hypothesize that segmentation into word-pieces will deteriorate performance for multi-tagging Hebrew. By deteriorating performance we mean that either the accuracy levels will go down, or access to internal structure will be lost. We show how incorporating linguistic knowledge helps maintain access to internal structure as well as improving overall accuracy.
 
 ### Some Experimental Settings
-The running example throughout will be of the word בבית /'in the house'/, for which the relevant multi-tag is IN^DEF\^NN. Generally 
+The running example throughout will be of the word בבית /'in the house'/, for which the relevant multi-tag is IN^DEF\^NN. Broadly speaking, there are two strategies, one where all the word-pieces (WPs from now) get the same tag, and another where each WP can get a different tag. 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMDcyMjc5NzcsLTExMjAyODU4ODksMT
-AzMTU1NDQ3NywxOTg0ODI4NTQ4LDExODEwMzAxNDgsLTU3MDE3
-NzYxMSwtMTYzNDQ0OTAwMywxMzQ3OTU3ODU5LDEzOTEzNjkyND
-AsLTMzNTE5MjE0MywtMzE4MTgxNTQsMTc2MDUyMDA2OCwyMDU1
-MTQwOTU4LC04NTQ4MDk1Myw1NjE3MzY4MjksMTI3NzE0MDgwM1
-19
+eyJoaXN0b3J5IjpbMTgwMDU2NDAwMCwtMTEyMDI4NTg4OSwxMD
+MxNTU0NDc3LDE5ODQ4Mjg1NDgsMTE4MTAzMDE0OCwtNTcwMTc3
+NjExLC0xNjM0NDQ5MDAzLDEzNDc5NTc4NTksMTM5MTM2OTI0MC
+wtMzM1MTkyMTQzLC0zMTgxODE1NCwxNzYwNTIwMDY4LDIwNTUx
+NDA5NTgsLTg1NDgwOTUzLDU2MTczNjgyOSwxMjc3MTQwODAzXX
+0=
 -->
