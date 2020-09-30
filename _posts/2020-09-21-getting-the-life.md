@@ -5,7 +5,7 @@ description: The theory behind the SIGMORPHON 2020 paper
 categories: [fastpages, jupyter]
 image: images/bert.png
 hide: false
-
+comments: true
 title: "Getting the ###life out of Living: How adequate are word-pieces for modelling complex morphology?"
 ---
 
