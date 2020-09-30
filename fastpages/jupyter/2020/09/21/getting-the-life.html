@@ -184,7 +184,15 @@ Essentially that means we want each WP to receive a (possibly multi-)tag that is
 <figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/strategy1-2.JPG" width="75%" align="center" alt="" /></figure>
 <p>Overall, we saw that BERT’s segmentation of words into sub-word units might work well for English since the linguistic properties of English (namely its linear nature and low morphemes-to-word ratio) work well with the BPE algorithm that BERT uses. Unfortunately this doesn’t hold for Hebrew too, where we want the correct morphological segmentation. Using linguistic knowledge can help us overcome some of the challenges of processing Hebrew, but still there’s a trade-off between prediction accuracy and the access to the internal structure that is not yet solved. Also note that all the linguistic knowledge we incorporated was really only introduced to the model at the very late stage of fine-tuning, which is probably too late (all the representations were already pre-trained on unsuitable segmentation). I’m no longer sure this calls for a designated BERT-for-Hebrew model, like in other languages, but all of these need to be taken into consideration anyway.</p>
 
-  </div><a class="u-url" href="/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="stavkl/linguistics-for-nlp"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
