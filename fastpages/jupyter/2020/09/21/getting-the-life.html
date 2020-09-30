@@ -168,14 +168,15 @@ In this section we use the fact that we can separate, fairly easily, the prefix 
 
 <p>So far we see that incorporating linguistic knowledge can help in both accuracy and access to internal structure. Next we’ll see what we can get when we step out of the common practices.<br /></p>
 
-<p><strong>Predicting a single tag per word piece (decomposed)</strong>
-Moving on to the strategy where each WP can get a different tag. Let’s say you’re not entirely convinced that WPs don’t reflect morphology (even though I told you it’s a fact, they weren’t designed to do that), what will happen if we just predict a single, simple POS tag for each WP? <figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposed.JPG" width="25%" align="right" alt="" /></figure> The advantages are obvious, we’ll immediately know which WP contributed which tag, and the number of simple tags is really not that big (about 50) so we could generate any new multi-tag we’d like, right?<br />
+<p><strong>Predicting a single tag per word piece (decomposed)</strong></p>
+<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposed.JPG" width="25%" align="right" alt="" /></figure>
+<p>Moving on to the strategy where each WP can get a different tag. Let’s say you’re not entirely convinced that WPs don’t reflect morphology (even though I told you it’s a fact, they weren’t designed to do that), what will happen if we just predict a single, simple POS tag for each WP? The advantages are obvious, we’ll immediately know which WP contributed which tag, and the number of simple tags is really not that big (about 50) so we could generate any new multi-tag we’d like, right?<br />
 Not exactly. The obvious advantages are still true, but it is also true that the overall F1 score drops to as low as <strong>76.65</strong>, and that’s because we lose so much information (and therefore accuracy) to those damn covert morphemes! See the example in the figure and remember that the multi-tag of the word בבית is IN^DEF^NN, but the tag DEF is not (and can’t be) part of the output as it’s not attached to any WP.<br /></p>
 
-<p><strong>(Multi-)tag per word piece (decomposed informed)</strong>
-So ideally we would want the first WP ב to reflect that its tag is IN but as a WP it also encapsulates the DEF tag, and we want the second WP בית to have just the tag NN.</p>
+<p><strong>(Multi-)tag per word piece (decomposed informed)</strong></p>
 <figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposedinformed.JPG" width="25%" align="right" alt="" /></figure>
-<p>Essentially that means we want each WP to receive a (possibly multi-)tag that is composed <em>only</em> of the morphemes contained in the WP, covert or not. That way we get all the advantages from before, without falling to the covert morphemes pitfall.<br /></p>
+<p>So ideally we would want the first WP ב to reflect that its tag is IN but as a WP it also encapsulates the DEF tag, and we want the second WP בית to have just the tag NN.
+Essentially that means we want each WP to receive a (possibly multi-)tag that is composed <em>only</em> of the morphemes contained in the WP, covert or not. That way we get all the advantages from before, without falling to the covert morphemes pitfall.<br /></p>
 
 <p>So I wrote a function that does just that, based on the the data we have in the Hebrew Treebank and some linguistic traits and heuristics we know about the partial order of POS-tags in Hebrew and the covert nature of some POS-tags (namely the definite article). This setting gets an F1 score of <strong>88.71</strong>.<br /></p>
 
