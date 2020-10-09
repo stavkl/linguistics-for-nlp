@@ -57,14 +57,14 @@ The fact is that WPs do not reflect the actual morphemes, so we hypothesize that
 The running example throughout will be of the word בבית /'in the house'/, for which the relevant multi-tag is IN^DEF^NN and the BPE segmentation is  ב, ##בית . Broadly speaking, because we only fine tune BERT and not changing the segmentation algorithm (something that would require pre-training from scratch) all we have left to play with are the tags that the WPs receive. There are two strategies, one where all the WPs of a given word get the same tag, and another where each WP can get a different tag. The common practice is to give all the WPs the same tag, so let's start with that.<br>
 
 **Predicting the entire multi-tag at word level**
-<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/raw.JPG" width="25%" align="right" alt=""></figure>
+<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/raw.JPG" width="25%" align="right" alt=""></internal_img></figure>
 
 In this setting we predict for each WP the complete multi-tag of the entire word, that is, for the WP 'ב' predict the multi tag IN^DEF^NN and also for the second WP '##בית'. We choose the prediction of the first WP to be the multi-tag for the whole word.
 On the upside, this is the easiest method to apply, but nothing comes without a price - we cannot generalize to new unseen tags, so if the model haven't seen the tag IN^DEF^NN during fine-tuning it won't be able to predict it in the evaluation. Also, the inner structure of the word remain inaccessible - eventually the model's prediction is that the word בבית has a multi-tag of IN^DEF^NN, but we can't infer which part of the word contributed the NN tag, for example, we can only tell that it's there. For POS tagging that might not make much of a difference, but for other tasks down the pipeline, like NER, it's really important to recognize where a proper noun begins and ends, for example.
 The F1 score for this setting is **94.09**. We can do better! We just need to be a little more sophisticated with the linguistic knowledge that we have and still didn't use.
 
 **Predicting Prefix (multi)-tag and the host (multi)-tag**
-<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/prefixhost.JPG" width="25%" align="right" alt=""></figure>
+<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/prefixhost.JPG" width="25%" align="right" alt=""></internal_img></figure>
 Hebrew words, as described before, are composed of morphemes, some morphemes come before the stem (called prefixes, like *dis-* in English), and some come after (like *-ness*). While in English affixes don't usually carry a separate POS-tag, in Hebrew they usually do.
 In this section we use the fact that we can separate, fairly easily, the prefix from the rest of the word (which we'll call the host). For the record, separating the suffix is also possible but not as easily, so we didn't do that.
 
@@ -73,17 +73,17 @@ We fine-tune the model twice, once for the prefix classifier and once for the ho
 Because we split and reassemble the tags we can generalize better to unseen tags, and we also get more access to the inner structure as the distinction between prefix and host is essentially a distinction between function and content (respectively), and it makes intuitive sense to fine-tune two models separately. It also yields a slightly better F1 score of **94.22**.
 
 **Strategy Summary**
-<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/strategy1.JPG" width="75%" align="center" alt=""></figure>
+<figure class="image"><img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/strategy1.JPG" width="75%" align="center" alt=""></figure>
 
 So far we see that incorporating linguistic knowledge can help in both accuracy and access to internal structure. Next we'll see what we can get when we step out of the common practices.<br>
 
 **Predicting a single tag per word piece (decomposed)**
-<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposed.JPG" width="25%" align="right" alt=""></figure>
+<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposed.JPG" width="25%" align="right" alt=""></internal_img></figure>
 Moving on to the strategy where each WP can get a different tag. Let's say you're not entirely convinced that WPs don't reflect morphology (even though I told you it's a fact, they weren't designed to do that), what will happen if we just predict a single, simple POS tag for each WP? The advantages are obvious, we'll immediately know which WP contributed which tag, and the number of simple tags is really not that big (about 50) so we could generate any new multi-tag we'd like, right?<br>
 Not exactly. The obvious advantages are still true, but it is also true that the overall F1 score drops to as low as **76.65**, and that's because we lose so much information (and therefore accuracy) to those damn covert morphemes! See the example in the figure and remember that the multi-tag of the word בבית is IN^DEF^NN, but the tag DEF is not (and can't be) part of the output as it's not attached to any WP.<br>
 
 **(Multi-)tag per word piece (decomposed informed)**
-<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposedinformed.JPG" width="25%" align="right" alt=""></figure>
+<figure class="image"><internal_img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/iscol-post/decomposedinformed.JPG" width="25%" align="right" alt=""></internal_img></figure>
 So ideally we would want the first WP ב to reflect that its tag is IN but as a WP it also encapsulates the DEF tag, and we want the second WP בית to have just the tag NN.
 Essentially that means we want each WP to receive a (possibly multi-)tag that is composed *only* of the morphemes contained in the WP, covert or not. That way we get all the advantages from before, without falling to the covert morphemes pitfall.<br>
 
