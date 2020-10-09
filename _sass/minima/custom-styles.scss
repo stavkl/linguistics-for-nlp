@@ -6,6 +6,15 @@
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
+.post internal_img {
+        display: block;
+        // border:1px solid #021a40;
+        vertical-align: top;
+        margin-left: auto;
+        margin-right: auto;
+        width: 25%;
+}
+
 
 // If you want to turn off dark background for syntax highlighting, comment or delete the below line.
 @import "minima/fastpages-dracula-highlight"; 
