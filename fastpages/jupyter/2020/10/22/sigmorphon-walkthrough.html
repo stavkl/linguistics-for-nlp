@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Getting the life out of Living | Linguistics for NLP</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Getting the life out of Living" />
+<meta name="author" content="Stav Klein" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A walkthrough creating, fine-tuning and evaluating the data for the SIGMORPHON 2020 paper" />
+<meta property="og:description" content="A walkthrough creating, fine-tuning and evaluating the data for the SIGMORPHON 2020 paper" />
+<link rel="canonical" href="https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/10/22/sigmorphon-walkthrough.html" />
+<meta property="og:url" content="https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/10/22/sigmorphon-walkthrough.html" />
+<meta property="og:site_name" content="Linguistics for NLP" />
+<meta property="og:image" content="https://stavkl.github.io/linguistics-for-nlp/images/draw-bert.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-22T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Stav Klein"},"description":"A walkthrough creating, fine-tuning and evaluating the data for the SIGMORPHON 2020 paper","@type":"BlogPosting","headline":"Getting the life out of Living","dateModified":"2020-10-22T00:00:00-05:00","datePublished":"2020-10-22T00:00:00-05:00","url":"https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/10/22/sigmorphon-walkthrough.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/10/22/sigmorphon-walkthrough.html"},"image":"https://stavkl.github.io/linguistics-for-nlp/images/draw-bert.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/linguistics-for-nlp/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://stavkl.github.io/linguistics-for-nlp/feed.xml" title="Linguistics for NLP" /><link rel="shortcut icon" type="image/x-icon" href="/linguistics-for-nlp/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/linguistics-for-nlp/">Linguistics for NLP</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/linguistics-for-nlp/about/">About</a><a class="page-link" href="/linguistics-for-nlp/publications/">Publications</a><a class="page-link" href="/linguistics-for-nlp/search/">Search</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Getting the life out of Living</h1><p class="page-description">A walkthrough creating, fine-tuning and evaluating the data for the SIGMORPHON 2020 paper</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-10-22T00:00:00-05:00" itemprop="datePublished">
+        Oct 22, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Stav Klein</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      17 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/linguistics-for-nlp/categories/#fastpages">fastpages</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/linguistics-for-nlp/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/stavkl/linguistics-for-nlp/tree/master/_notebooks/2020-10-22-sigmorphon-walkthrough.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/linguistics-for-nlp/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/stavkl/linguistics-for-nlp/master?filepath=_notebooks%2F2020-10-22-sigmorphon-walkthrough.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/linguistics-for-nlp/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/stavkl/linguistics-for-nlp/blob/master/_notebooks/2020-10-22-sigmorphon-walkthrough.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/linguistics-for-nlp/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-10-22-sigmorphon-walkthrough.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Importing-the-libraries">Importing the libraries<a class="anchor-link" href="#Importing-the-libraries"> </a></h3><p>Note that the 'bclm' library is an internal library developed in the ONLP lab, and is currently unavailable for public use. All the results are obtailable and reproducible with the standard parsing of CONLL formatted files (all available in the ONLP Github page).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span><span class="p">,</span> <span class="n">trange</span>
+<span class="kn">import</span> <span class="nn">bclm</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">TensorDataset</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">RandomSampler</span><span class="p">,</span> <span class="n">SequentialSampler</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.sequence</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertConfig</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertForTokenClassification</span><span class="p">,</span> <span class="n">AdamW</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Using TensorFlow backend.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Manually-setting-seeds">Manually setting seeds<a class="anchor-link" href="#Manually-setting-seeds"> </a></h3><p>Results are calculated based on an average of 5 independent runs of this code. The seeds are set to minimize the variation between runs. Due to internal randomization in pytorch results can't be identical from run to run even when using the same seeds (see <a href="https://pytorch.org/docs/stable/notes/randomness.html">pytorch documentation</a>)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Taking-a-first-and-important-look-at-the-data">Taking a first and important look at the data<a class="anchor-link" href="#Taking-a-first-and-important-look-at-the-data"> </a></h3><p>Data is split to train, dev and test sets. We fine-tune the model on the train set and evaluate it on the dev set.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span> <span class="o">=</span> <span class="n">bclm</span><span class="o">.</span><span class="n">read_dataframe</span><span class="p">(</span><span class="s1">&#39;spmrl&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">train_df</span> <span class="o">=</span> <span class="n">bclm</span><span class="o">.</span><span class="n">get_token_df</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;upostag&#39;</span><span class="p">])</span>
+<span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;token_str&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;token_str&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;”&#39;</span><span class="p">,</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+
+<span class="n">dev</span> <span class="o">=</span> <span class="n">bclm</span><span class="o">.</span><span class="n">read_dataframe</span><span class="p">(</span><span class="s1">&#39;spmrl&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="s1">&#39;dev&#39;</span><span class="p">)</span>
+<span class="n">dev_df</span> <span class="o">=</span> <span class="n">bclm</span><span class="o">.</span><span class="n">get_token_df</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;upostag&#39;</span><span class="p">])</span>
+<span class="n">dev_df</span><span class="p">[</span><span class="s1">&#39;token_str&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dev_df</span><span class="p">[</span><span class="s1">&#39;token_str&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;”&#39;</span><span class="p">,</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Here-are-the-first-lines-of-the-dev-set">Here are the first lines of the dev set<a class="anchor-link" href="#Here-are-the-first-lines-of-the-dev-set"> </a></h3><p>Notice that some words have a multi-tag while other words carry a simple tag - a challenge for Hebrew POS-tagging.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dev_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sent_id</th>
+      <th>token_id</th>
+      <th>token_str</th>
+      <th>upostag</th>
+      <th>set</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>עשרות</td>
+      <td>CDT</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>אנשים</td>
+      <td>NN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>מגיעים</td>
+      <td>BN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>4</td>
+      <td>מתאילנד</td>
+      <td>PREPOSITION^NNP</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>5</td>
+      <td>לישראל</td>
+      <td>PREPOSITION^NNP</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>6</td>
+      <td>כשהם</td>
+      <td>TEMP^PRP</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>7</td>
+      <td>נרשמים</td>
+      <td>BN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>8</td>
+      <td>כמתנדבים</td>
+      <td>PREPOSITION^NN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1</td>
+      <td>9</td>
+      <td>,</td>
+      <td>yyCM</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>10</td>
+      <td>אך</td>
+      <td>CC</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1</td>
+      <td>11</td>
+      <td>למעשה</td>
+      <td>RB</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1</td>
+      <td>12</td>
+      <td>משמשים</td>
+      <td>BN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1</td>
+      <td>13</td>
+      <td>עובדים</td>
+      <td>NN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>1</td>
+      <td>14</td>
+      <td>שכירים</td>
+      <td>JJ</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>1</td>
+      <td>15</td>
+      <td>זולים</td>
+      <td>JJ</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1</td>
+      <td>16</td>
+      <td>.</td>
+      <td>yyDOT</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2</td>
+      <td>1</td>
+      <td>תופעה</td>
+      <td>NN</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>2</td>
+      <td>2</td>
+      <td>זו</td>
+      <td>PRP</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2</td>
+      <td>3</td>
+      <td>התבררה</td>
+      <td>VB</td>
+      <td>dev</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2</td>
+      <td>4</td>
+      <td>אתמול</td>
+      <td>RB</td>
+      <td>dev</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Uniform-column-names">Uniform column names<a class="anchor-link" href="#Uniform-column-names"> </a></h3><p>We evaluated on different datasets so a uniform column name was needed</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;token_str&quot;</span><span class="p">:</span> <span class="s2">&quot;form&quot;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">dev_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;token_str&quot;</span><span class="p">:</span> <span class="s2">&quot;form&quot;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Get-lists-of-sentences-and-their-corresponding-labels">Get lists of sentences and their corresponding labels<a class="anchor-link" href="#Get-lists-of-sentences-and-their-corresponding-labels"> </a></h3><p>Includes an example of a sentence from the train set at the end. Also, not shown here, we removed the four longest sentences from the dev set, as they caused systematic issued later on in the code.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">sentenceGetter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">max_sent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_sent</span> <span class="o">=</span> <span class="n">max_sent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokens</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;upostag&#39;</span><span class="p">]</span>
+        <span class="c1">#for evaluating by word-accuracy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">correspondingToken</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;token_id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig_sent_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sent_id&#39;</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sent</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">for</span> <span class="n">token</span><span class="p">,</span><span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tokens</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">correspondingToken</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_sent_id</span><span class="p">):</span>
+            <span class="n">sent</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">sent</span>
+                <span class="n">sent</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_sent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">counter</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_sent</span><span class="p">:</span>
+                <span class="k">return</span>
+
+<span class="n">train_getter</span> <span class="o">=</span> <span class="n">sentenceGetter</span><span class="p">(</span><span class="n">train_df</span><span class="p">)</span>
+<span class="n">dev_getter</span> <span class="o">=</span> <span class="n">sentenceGetter</span><span class="p">(</span><span class="n">dev_df</span><span class="p">)</span>
+<span class="n">test_getter</span> <span class="o">=</span> <span class="n">sentenceGetter</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
+
+<span class="n">train_sentences</span> <span class="o">=</span> <span class="p">[[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">train_getter</span><span class="o">.</span><span class="n">sentences</span><span class="p">()]</span>
+<span class="n">train_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="n">label</span> <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">train_getter</span><span class="o">.</span><span class="n">sentences</span><span class="p">()]</span>
+
+<span class="n">dev_sentences</span> <span class="o">=</span> <span class="p">[[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">dev_getter</span><span class="o">.</span><span class="n">sentences</span><span class="p">()]</span>
+<span class="n">dev_labels</span> <span class="o">=</span> <span class="p">[[</span><span class="n">label</span> <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">dev_getter</span><span class="o">.</span><span class="n">sentences</span><span class="p">()]</span>
+<span class="n">dev_corresTokens</span> <span class="o">=</span> <span class="p">[[</span><span class="n">corres_tok</span> <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">dev_getter</span><span class="o">.</span><span class="n">sentences</span><span class="p">()]</span>
+<span class="n">dev_sent_ids</span> <span class="o">=</span> <span class="p">[[</span><span class="n">sent_id</span> <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">corres_tok</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">]</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">dev_getter</span><span class="o">.</span><span class="n">sentences</span><span class="p">()]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">train_sentences</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train_labels</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dev_sentences</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_sentences</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;הם&#39;, &#39;התבקשו&#39;, &#39;לדווח&#39;, &#39;למשטרה&#39;, &#39;על&#39;, &#39;תנועותיהם&#39;, &#39;.&#39;]
+[&#39;PRP&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;PREPOSITION^DEF^NN&#39;, &#39;IN&#39;, &#39;NN&#39;, &#39;yyDOT&#39;]
+490
+712
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Put-everything-on-CUDA">Put everything on CUDA<a class="anchor-link" href="#Put-everything-on-CUDA"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="n">n_gpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Device: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of gpus: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_gpu</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Name of gpu: &quot;</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Device: cuda
+Number of gpus: 4
+Name of gpu: GeForce RTX 2080 Ti
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MAX_LEN</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">bs</span> <span class="o">=</span> <span class="mi">32</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tokenize-the-training-set-(with-BERT)">Tokenize the training set (with BERT)<a class="anchor-link" href="#Tokenize-the-training-set-(with-BERT)"> </a></h3><p>See the example of how the tokenization looks like in the end</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;bert-base-multilingual-cased&#39;</span><span class="p">,</span> <span class="n">do_lower_case</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">orig_labels</span><span class="p">):</span>
+    <span class="n">tokenized_texts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sent</span><span class="p">,</span> <span class="n">sent_labels</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">orig_labels</span><span class="p">):</span>
+        <span class="n">bert_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">bert_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">orig_token</span><span class="p">,</span> <span class="n">orig_label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="n">sent_labels</span><span class="p">):</span>
+            <span class="n">b_tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">orig_token</span><span class="p">)</span>
+            <span class="n">bert_tokens</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b_tokens</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">b_token</span> <span class="ow">in</span> <span class="n">b_tokens</span><span class="p">:</span>
+                <span class="n">bert_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orig_label</span><span class="p">)</span>
+        <span class="n">tokenized_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bert_tokens</span><span class="p">)</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bert_labels</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bert_tokens</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bert_labels</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tokenized_texts</span><span class="p">,</span> <span class="n">labels</span>
+
+<span class="n">train_tokenized_texts</span><span class="p">,</span> <span class="n">train_tokenized_labels</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">(</span><span class="n">train_sentences</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train_tokenized_texts</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train_tokenized_labels</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;הם&#39;, &#39;ה&#39;, &#39;##ת&#39;, &#39;##בק&#39;, &#39;##שו&#39;, &#39;ל&#39;, &#39;##דו&#39;, &#39;##וח&#39;, &#39;ל&#39;, &#39;##משטרה&#39;, &#39;על&#39;, &#39;ת&#39;, &#39;##נוע&#39;, &#39;##ות&#39;, &#39;##יהם&#39;, &#39;.&#39;]
+[&#39;PRP&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;VB&#39;, &#39;PREPOSITION^DEF^NN&#39;, &#39;PREPOSITION^DEF^NN&#39;, &#39;IN&#39;, &#39;NN&#39;, &#39;NN&#39;, &#39;NN&#39;, &#39;NN&#39;, &#39;yyDOT&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Get-a-list-of-all-possible-POS-tag-labels">Get a list of all possible POS-tag labels<a class="anchor-link" href="#Get-a-list-of-all-possible-POS-tag-labels"> </a></h3><p>Note that this list contains simple and multi POS tags. There are 50 Simple POS-tags (in isolation), and 315 POS-tags (combining simple and multi POS-tags). Making even more complex tags (for example, joining the 'feats' tag as well) results in an exponentially larger and more sparse label space.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">train_df</span>
+<span class="n">tag_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;upostag&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PAD&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">tag_vals</span>
+<span class="n">tag2idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">tag</span><span class="p">:</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tags</span><span class="p">)}</span>
+<span class="n">idx2tag</span> <span class="o">=</span> <span class="p">{</span><span class="n">idx</span><span class="p">:</span><span class="n">tag</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tags</span><span class="p">)}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tag2idx</span><span class="p">)</span>
+<span class="c1"># print(idx2tag)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tags</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;PAD&#39;: 0, &#39;REL^PREPOSITION^CDT&#39;: 1, &#39;DEF^DTT&#39;: 2, &#39;CONJ^VB^AT^PRP&#39;: 3, &#39;CONJ^yyQUOT^NNT&#39;: 4, &#39;PREPOSITION^ADVERB^CD&#39;: 5, &#39;TEMP^PRP&#39;: 6, &#39;CONJ^TEMP^RB&#39;: 7, &#39;AT&#39;: 8, &#39;CONJ^REL^COP&#39;: 9, &#39;PREPOSITION^ADVERB^NCD&#39;: 10, &#39;PREPOSITION^ADVERB^CDT&#39;: 11, &#39;CONJ^DTT&#39;: 12, &#39;TEMP^PREPOSITION^DEF^NN&#39;: 13, &#39;TEMP^NNP&#39;: 14, &#39;IN^IN^NNT&#39;: 15, &#39;DEF^P&#39;: 16, &#39;ADVERB^DTT&#39;: 17, &#39;VB^AT^S_ANP&#39;: 18, &#39;CONJ^DEF^NNP&#39;: 19, &#39;CD&#39;: 20, &#39;PREPOSITION^PREPOSITION^DEF^PRP&#39;: 21, &#39;PREPOSITION^yyQUOT^DEF^NN&#39;: 22, &#39;REL^DTT&#39;: 23, &#39;CONJ^IN&#39;: 24, &#39;POS&#39;: 25, &#39;PREPOSITION^JJ&#39;: 26, &#39;TEMP^NNT&#39;: 27, &#39;REL^yyQUOT^NNP&#39;: 28, &#39;CONJ^NNP&#39;: 29, &#39;IN^NN&#39;: 30, &#39;PREPOSITION^CDT&#39;: 31, &#39;PREPOSITION^NNP&#39;: 32, &#39;CONJ^CC&#39;: 33, &#39;yyLRB&#39;: 34, &#39;DEF^NN&#39;: 35, &#39;BNT&#39;: 36, &#39;REL^DEF^BN&#39;: 37, &#39;REL^yyQUOT^JJ&#39;: 38, &#39;PREPOSITION^DEF^yyQUOT^NNP&#39;: 39, &#39;REL&#39;: 40, &#39;NN&#39;: 41, &#39;IN^NNT&#39;: 42, &#39;TEMP^RB&#39;: 43, &#39;DEF^RB&#39;: 44, &#39;REL^JJ&#39;: 45, &#39;IN&#39;: 46, &#39;JJ&#39;: 47, &#39;PREPOSITION^DEF^CD&#39;: 48, &#39;CONJ^REL^PREPOSITION^NN&#39;: 49, &#39;CONJ^yyQUOT^NN&#39;: 50, &#39;CONJ^PREPOSITION^CDT&#39;: 51, &#39;CONJ^MD&#39;: 52, &#39;IN^PRP&#39;: 53, &#39;CONJ^yyQUOT^DEF^JJ&#39;: 54, &#39;PREPOSITION^POS^S_PRN&#39;: 55, &#39;PREPOSITION^CC&#39;: 56, &#39;CONJ^INTJ&#39;: 57, &#39;CONJ^PRP&#39;: 58, &#39;CONJ^REL^BN&#39;: 59, &#39;PREPOSITION^JJT&#39;: 60, &#39;REL^PREPOSITION^DTT&#39;: 61, &#39;PREPOSITION^DEF^BN&#39;: 62, &#39;IN^VB&#39;: 63, &#39;PREPOSITION^DEF&#39;: 64, &#39;REL^DT&#39;: 65, &#39;CONJ^yyQUOT^IN&#39;: 66, &#39;TEMP^VB&#39;: 67, &#39;CONJ^DEF^JJ&#39;: 68, &#39;CONJ^IN^DEF^NN&#39;: 69, &#39;PREPOSITION^ADVERB^NN&#39;: 70, &#39;REL^COP&#39;: 71, &#39;REL^BN&#39;: 72, &#39;PREPOSITION^yyQUOT^NN&#39;: 73, &#39;CONJ^IN^PRP&#39;: 74, &#39;CONJ^REL^NNT&#39;: 75, &#39;CONJ^PREPOSITION^NN&#39;: 76, &#39;yyCLN&#39;: 77, &#39;yyQM&#39;: 78, &#39;ZVL^PREPOSITION^NNT&#39;: 79, &#39;REL^MD&#39;: 80, &#39;CONJ^PREPOSITION^CC&#39;: 81, &#39;REL^AT&#39;: 82, &#39;ZVL^DEF^NNT&#39;: 83, &#39;PREPOSITIONIN^PREPOSITION^NN&#39;: 84, &#39;PREPOSITION^DEF^NN&#39;: 85, &#39;REL^DEF^JJ&#39;: 86, &#39;DT&#39;: 87, &#39;VB&#39;: 88, &#39;CONJ&#39;: 89, &#39;IN^IN&#39;: 90, &#39;PREPOSITION^IN&#39;: 91, &#39;CONJ^CDT&#39;: 92, &#39;PREPOSITION^REL^VB&#39;: 93, &#39;CONJ^REL^VB&#39;: 94, &#39;PREPOSITION^VB&#39;: 95, &#39;REL^CC&#39;: 96, &#39;ZVL^PREPOSITION^DEF^NN&#39;: 97, &#39;PREPOSITION^PREPOSITION^DEF^NN&#39;: 98, &#39;CONJ^COP&#39;: 99, &#39;REL^yyQUOT^COP&#39;: 100, &#39;IN^NCD&#39;: 101, &#39;CONJ^yyQUOT^NNP&#39;: 102, &#39;CONJ^PREPOSITION^DEF^NNP&#39;: 103, &#39;CONJ^DEF^CD&#39;: 104, &#39;PREPOSITION^PREPOSITION^DEF^DEF&#39;: 105, &#39;PREPOSITION^REL^COP&#39;: 106, &#39;AT^S_PRN&#39;: 107, &#39;CONJ^IN^S_PRN&#39;: 108, &#39;DEF^yyQUOT^JJ&#39;: 109, &#39;DEF^MD&#39;: 110, &#39;CONJ^QW&#39;: 111, &#39;yyDOT&#39;: 112, &#39;CONJ^RB&#39;: 113, &#39;CC&#39;: 114, &#39;REL^PREPOSITION^DEF^PRP&#39;: 115, &#39;REL^IN^PRP&#39;: 116, &#39;PREPOSITION^DEF^CDT&#39;: 117, &#39;IN^CDT&#39;: 118, &#39;PREPOSITION^DEF^RB&#39;: 119, &#39;REL^PREPOSITION^RB&#39;: 120, &#39;IN^RB&#39;: 121, &#39;CONJ^DT&#39;: 122, &#39;CONJ^TEMP^VB&#39;: 123, &#39;REL^yyQUOT^MD&#39;: 124, &#39;CONJ^PREPOSITION^PRP&#39;: 125, &#39;PREPOSITION^DEF^JJ&#39;: 126, &#39;NN^yyDOT&#39;: 127, &#39;REL^yyQUOT^PRP&#39;: 128, &#39;CONJ^PREPOSITION^NNP&#39;: 129, &#39;MD&#39;: 130, &#39;CONJ^PREPOSITION^DEF^CD&#39;: 131, &#39;CONJ^JJ&#39;: 132, &#39;CONJ^PREPOSITION^BN&#39;: 133, &#39;yySCLN&#39;: 134, &#39;DEF^JJ&#39;: 135, &#39;PREPOSITION^PREPOSITION^NN&#39;: 136, &#39;PREPOSITION^IN^DEF^PRP&#39;: 137, &#39;CONJ^DEF^NN&#39;: 138, &#39;CONJ^DEF^yyQUOT^NN&#39;: 139, &#39;REL^DEF^NN&#39;: 140, &#39;ZVL^PREPOSITION^NN&#39;: 141, &#39;REL^ADVERB^CD&#39;: 142, &#39;PREPOSITION^CD&#39;: 143, &#39;REL^yyQUOT^BN&#39;: 144, &#39;INTJ&#39;: 145, &#39;REL^PRP&#39;: 146, &#39;VB^AT^PRP&#39;: 147, &#39;REL^PREPOSITION^yyQUOT^NNP&#39;: 148, &#39;CC^ZVL^DEF^NN&#39;: 149, &#39;RB&#39;: 150, &#39;CONJ^PREPOSITION^RB&#39;: 151, &#39;yyDASH&#39;: 152, &#39;CONJ^REL^IN&#39;: 153, &#39;TEMP^DEF^BN&#39;: 154, &#39;DEF^CD&#39;: 155, &#39;ZVL^CD&#39;: 156, &#39;CONJ^PREPOSITION^CD&#39;: 157, &#39;DEF^COP&#39;: 158, &#39;PRP&#39;: 159, &#39;CONJ^AT&#39;: 160, &#39;VB^AT^S_PRN&#39;: 161, &#39;NNP&#39;: 162, &#39;CONJ^PREPOSITION^BNT&#39;: 163, &#39;P&#39;: 164, &#39;CONJ^BN&#39;: 165, &#39;PREPOSITION^yyQUOT^NNT&#39;: 166, &#39;yyEXCL&#39;: 167, &#39;JJT&#39;: 168, &#39;REL^VB&#39;: 169, &#39;CONJ^PREPOSITION^yyQUOT^CDT&#39;: 170, &#39;TEMP^DEF^NN&#39;: 171, &#39;REL^DEF^NNP&#39;: 172, &#39;CONJ^VB&#39;: 173, &#39;PREPOSITION^PRP&#39;: 174, &#39;DEF^BN^AT^PRP&#39;: 175, &#39;yyELPS&#39;: 176, &#39;P^NN&#39;: 177, &#39;REL^PREPOSITION^DT&#39;: 178, &#39;CONJ^REL^DEF^NN&#39;: 179, &#39;IN^S_PRN&#39;: 180, &#39;NCD&#39;: 181, &#39;PREPOSITION^DT&#39;: 182, &#39;DEF^PREPOSITION^NNT&#39;: 183, &#39;REL^CDT&#39;: 184, &#39;DEF&#39;: 185, &#39;REL^JJT&#39;: 186, &#39;TEMP^IN&#39;: 187, &#39;yyQUOT&#39;: 188, &#39;CONJ^IN^NNT&#39;: 189, &#39;QW&#39;: 190, &#39;POS^S_PRN&#39;: 191, &#39;CONJ^NN&#39;: 192, &#39;CONJ^REL^EX&#39;: 193, &#39;CONJ^PREPOSITION^P&#39;: 194, &#39;PREPOSITION^BN&#39;: 195, &#39;ZVL^DEF^NNP&#39;: 196, &#39;PREPOSITION^NNT&#39;: 197, &#39;ZVL^JJT&#39;: 198, &#39;IN^NNP&#39;: 199, &#39;REL^PREPOSITION^BN&#39;: 200, &#39;CONJ^yyQUOT^DEF^NN&#39;: 201, &#39;PREPOSITION^DEF^P&#39;: 202, &#39;TEMP^COP&#39;: 203, &#39;REL^AT^S_PRN&#39;: 204, &#39;PREPOSITION^yyQUOT^NNP&#39;: 205, &#39;REL^P&#39;: 206, &#39;PREPOSITION^yyQUOT^PREPOSITION^NNT&#39;: 207, &#39;ZVL^ZVL&#39;: 208, &#39;REL^PREPOSITION^NNP&#39;: 209, &#39;TEMP^PREPOSITION^NNP&#39;: 210, &#39;NEG&#39;: 211, &#39;CONJ^PREPOSITION^DTT&#39;: 212, &#39;REL^yyQUOT^PREPOSITION^NN&#39;: 213, &#39;REL^DEF^CD&#39;: 214, &#39;CONJ^NNT&#39;: 215, &#39;PREPOSITION^RB^S_PRN&#39;: 216, &#39;DEF^NNP&#39;: 217, &#39;CONJ^POS&#39;: 218, &#39;REL^yyQUOT^DEF^NN&#39;: 219, &#39;PREPOSITION^ PREPOSITION^DEF^NN&#39;: 220, &#39;DEF^NCD&#39;: 221, &#39;REL^NNT&#39;: 222, &#39;PREPOSITION^DEF^NNT&#39;: 223, &#39;IN^REL^NNT&#39;: 224, &#39;ZVL^RB&#39;: 225, &#39;BN&#39;: 226, &#39;PREPOSITION^NN&#39;: 227, &#39;REL^PREPOSITION^NN&#39;: 228, &#39;TEMP^PREPOSITION^NN&#39;: 229, &#39;ZVL^NNT&#39;: 230, &#39;TEMP^NN&#39;: 231, &#39;PREPOSITION^BNT&#39;: 232, &#39;CDT&#39;: 233, &#39;DEF^yyQUOT^NNP&#39;: 234, &#39;PREPOSITION^yyQUOT^PREPOSITION^DEF^NN&#39;: 235, &#39;PREPOSITION^IN^S_PRN&#39;: 236, &#39;ZVL^DEF^NN&#39;: 237, &#39;CONJ^EX&#39;: 238, &#39;DEF^DEF^NN&#39;: 239, &#39;CONJ^IN^JJT&#39;: 240, &#39;NNT&#39;: 241, &#39;DTT&#39;: 242, &#39;IN^yyQUOT^VB&#39;: 243, &#39;REL^RB&#39;: 244, &#39;EX&#39;: 245, &#39;CONJ^PREPOSITION^QW&#39;: 246, &#39;ADVERB^NCD&#39;: 247, &#39;TEMP^BN&#39;: 248, &#39;CONJ^JJT&#39;: 249, &#39;CONJ^PREPOSITION^yyQUOT^NNP&#39;: 250, &#39;IN^DEF^NN&#39;: 251, &#39;CONJ^CD&#39;: 252, &#39;REL^CD&#39;: 253, &#39;DEF^NNT&#39;: 254, &#39;CONJ^BNT&#39;: 255, &#39;REL^PREPOSITION^NNT&#39;: 256, &#39;PREPOSITION^POS&#39;: 257, &#39;ZVL&#39;: 258, &#39;PREPOSITION^NEG&#39;: 259, &#39;PREPOSITION^yyQUOT^BN&#39;: 260, &#39;REL^QW&#39;: 261, &#39;CONJ^DEF^DTT&#39;: 262, &#39;REL^VB^AT^PRP&#39;: 263, &#39;CONJ^DEF^P&#39;: 264, &#39;ZVL^IN&#39;: 265, &#39;PREPOSITIONIN^NN&#39;: 266, &#39;REL^PREPOSITION^DEF^NN&#39;: 267, &#39;PREPOSITION^DEF^PRP&#39;: 268, &#39;PREPOSITION^NCD&#39;: 269, &#39;IN^JJT&#39;: 270, &#39;yyCM&#39;: 271, &#39;REL^IN&#39;: 272, &#39;REL^IN^S_PRN&#39;: 273, &#39;CONJ^DEF^MD&#39;: 274, &#39;REL^yyQUOT^RB&#39;: 275, &#39;REL^yyQUOT^VB&#39;: 276, &#39;PREPOSITION^PREPOSITION^NNT&#39;: 277, &#39;CONJ^yyQUOT^VB&#39;: 278, &#39;CONJ^REL^NN&#39;: 279, &#39;DEF^yyQUOT^NN&#39;: 280, &#39;REL^NN&#39;: 281, &#39;PREPOSITION&#39;: 282, &#39;COP&#39;: 283, &#39;REL^EX&#39;: 284, &#39;AT^PRP&#39;: 285, &#39;TEMP^PREPOSITION^PRP&#39;: 286, &#39;CONJ^PREPOSITION^DEF^NN&#39;: 287, &#39;IN^RB^CD&#39;: 288, &#39;REL^NNP&#39;: 289, &#39;CONJ^BN^AT^PRP&#39;: 290, &#39;ADVERB^NN&#39;: 291, &#39;CONJ^TEMP^BN&#39;: 292, &#39;CONJ^PREPOSITION^NNT&#39;: 293, &#39;CONJ^DEF^BN&#39;: 294, &#39;PREPOSITION^RB&#39;: 295, &#39;DEF^BN&#39;: 296, &#39;REL^yyQUOT^NN&#39;: 297, &#39;PREPOSITION^DEF^NNP&#39;: 298, &#39;CONJ^P&#39;: 299, &#39;ZVL^NNP&#39;: 300, &#39;IN^DTT&#39;: 301, &#39;ADVERB^CD&#39;: 302, &#39;CONJ^PREPOSITION^JJ&#39;: 303, &#39;ZVL^COP&#39;: 304, &#39;CONJ^PREPOSITION^DEF^JJ&#39;: 305, &#39;CONJ^PREPOSITION^DEF^PRP&#39;: 306, &#39;PREPOSITION^P&#39;: 307, &#39;RB^S_PRN&#39;: 308, &#39;PREPOSITION^QW&#39;: 309, &#39;ZVL^NN&#39;: 310, &#39;DEF^PRP&#39;: 311, &#39;PREPOSITION^DTT&#39;: 312, &#39;yyRRB&#39;: 313, &#39;TEMP^DEF^CD&#39;: 314}
+315
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="All-the-technical-stuff">All the technical stuff<a class="anchor-link" href="#All-the-technical-stuff"> </a></h3><p>To make sentences and labels the same length and in tensor form</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pad_sentences_and_labels</span><span class="p">(</span><span class="n">tokenized_texts</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="n">input_ids</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">([</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span> <span class="k">for</span> <span class="n">txt</span> <span class="ow">in</span> <span class="n">tokenized_texts</span><span class="p">],</span>
+                              <span class="n">maxlen</span> <span class="o">=</span> <span class="n">MAX_LEN</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">truncating</span> <span class="o">=</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span> <span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">tag2idx</span><span class="p">[</span><span class="s1">&#39;PAD&#39;</span><span class="p">])</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">([[</span><span class="n">tag2idx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lab</span><span class="p">]</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">],</span> 
+                         <span class="n">maxlen</span> <span class="o">=</span> <span class="n">MAX_LEN</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">tag2idx</span><span class="p">[</span><span class="s1">&#39;PAD&#39;</span><span class="p">],</span> <span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+                        <span class="n">dtype</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">truncating</span> <span class="o">=</span> <span class="s2">&quot;post&quot;</span><span class="p">)</span>
+    <span class="n">attention_masks</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">input_ids</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">input_ids</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">attention_masks</span>
+
+<span class="n">input_ids</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">attention_masks</span> <span class="o">=</span> <span class="n">pad_sentences_and_labels</span><span class="p">(</span><span class="n">train_tokenized_texts</span><span class="p">,</span> <span class="n">train_tokenized_labels</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tr_inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">tr_tags</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">tr_masks</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">attention_masks</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">tr_inputs</span><span class="p">,</span> <span class="n">tr_masks</span><span class="p">,</span> <span class="n">tr_tags</span><span class="p">)</span>
+<span class="n">train_sampler</span> <span class="o">=</span> <span class="n">RandomSampler</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+<span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">sampler</span> <span class="o">=</span> <span class="n">train_sampler</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">bs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Performing-the-Fine-tuning">Performing the Fine-tuning<a class="anchor-link" href="#Performing-the-Fine-tuning"> </a></h3><p>As you can see we didn't perform any hyperparameter search. This is intended. Of course, HP-optimization can make the model better (you are welcome to try it yourself), but we didn't want to make the best model, we wanted to investigate how well contextualized models can represent complex morphology, so all of our models use the same fine-tuning procedure described below, and the only thing that changes is the label that each word-piece receives (described in detail in the theoratical post on this paper).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">get_linear_schedule_with_warmup</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">BertForTokenClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;bert-base-multilingual-cased&#39;</span><span class="p">,</span>
+                                                   <span class="n">num_labels</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">tag2idx</span><span class="p">),</span>
+                                                   <span class="n">output_attentions</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                                                   <span class="n">output_hidden_states</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<span class="n">FULL_FINETUNING</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">FULL_FINETUNING</span><span class="p">:</span>
+    <span class="n">param_optimizer</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">())</span>
+    <span class="n">no_decay</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+    <span class="n">optimizer_grouped_parameters</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param_optimizer</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">nd</span> <span class="ow">in</span> <span class="n">n</span> <span class="k">for</span> <span class="n">nd</span> <span class="ow">in</span> <span class="n">no_decay</span><span class="p">)],</span>
+         <span class="s1">&#39;weight_decay_rate&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param_optimizer</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">nd</span> <span class="ow">in</span> <span class="n">n</span> <span class="k">for</span> <span class="n">nd</span> <span class="ow">in</span> <span class="n">no_decay</span><span class="p">)],</span>
+         <span class="s1">&#39;weight_decay_rate&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">param_optimizer</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">())</span>
+    <span class="n">optimizer_grouped_parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param_optimizer</span><span class="p">]}]</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">AdamW</span><span class="p">(</span><span class="n">optimizer_grouped_parameters</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-5</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">seqeval.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="k">def</span> <span class="nf">flat_accuracy</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="n">pred_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">labels_flat</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="c1">#     print (pred_flat, labels_flat)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pred_flat</span> <span class="o">==</span> <span class="n">labels_flat</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_flat</span><span class="p">)</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">max_grad_norm</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="c1"># Total number of training steps is number of batches * number of epochs.</span>
+<span class="n">total_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">)</span> <span class="o">*</span> <span class="n">epochs</span>
+
+<span class="c1"># Create the learning rate scheduler.</span>
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">get_linear_schedule_with_warmup</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> 
+                                            <span class="n">num_warmup_steps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                            <span class="n">num_training_steps</span><span class="o">=</span><span class="n">total_steps</span><span class="p">)</span>
+
+<span class="c1">## Store the average loss after each epoch so we can plot them.</span>
+<span class="n">loss_values</span><span class="p">,</span> <span class="n">validation_loss_values</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">trange</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Epoch&quot;</span><span class="p">):</span>
+    <span class="c1"># TRAIN loop</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">):</span>
+        <span class="c1"># add batch to gpu</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">b_input_ids</span><span class="p">,</span> <span class="n">b_input_mask</span><span class="p">,</span> <span class="n">b_labels</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="c1"># forward pass</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">b_input_ids</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">attention_mask</span><span class="o">=</span><span class="n">b_input_mask</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">b_labels</span><span class="p">)</span>
+        <span class="c1"># get the loss</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Perform a backward pass to calculate the gradients.</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="c1"># track train loss</span>
+        <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> 
+        <span class="c1"># Clip the norm of the gradient</span>
+        <span class="c1"># This is to help prevent the &quot;exploding gradients&quot; problem.</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">max_norm</span><span class="o">=</span><span class="n">max_grad_norm</span><span class="p">)</span>
+        <span class="c1"># update parameters</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1"># Update the learning rate.</span>
+        <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        
+    <span class="c1"># Calculate the average loss over the training data.</span>
+    <span class="n">avg_train_loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataloader</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average train loss: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_train_loss</span><span class="p">))</span>
+    
+    <span class="c1"># Store the loss value for plotting the learning curve.</span>
+    <span class="n">loss_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_train_loss</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:   7%|▋         | 1/15 [00:58&lt;13:45, 58.94s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 2.2720749048810256
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  13%|█▎        | 2/15 [02:02&lt;13:05, 60.43s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.821627008679666
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  20%|██        | 3/15 [03:12&lt;12:36, 63.06s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.5413947211284387
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  27%|██▋       | 4/15 [04:27&lt;12:16, 66.92s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.39871315207136304
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  33%|███▎      | 5/15 [05:46&lt;11:42, 70.26s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.31264687878520864
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  40%|████      | 6/15 [07:04&lt;10:54, 72.67s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.25154486896568223
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  47%|████▋     | 7/15 [08:23&lt;09:56, 74.55s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.20845407497529922
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  53%|█████▎    | 8/15 [09:42&lt;08:50, 75.82s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.17870022454544118
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  60%|██████    | 9/15 [11:02&lt;07:43, 77.18s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.15089197540165564
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  67%|██████▋   | 10/15 [12:25&lt;06:34, 78.94s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.13223850584932065
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  73%|███████▎  | 11/15 [13:46&lt;05:17, 79.48s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.11638171909573047
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  80%|████████  | 12/15 [15:05&lt;03:58, 79.42s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.10619803432277158
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  87%|████████▋ | 13/15 [16:26&lt;02:39, 79.99s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.09557023781694864
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch:  93%|█████████▎| 14/15 [17:48&lt;01:20, 80.63s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.09014363510926303
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch: 100%|██████████| 15/15 [19:06&lt;00:00, 76.45s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average train loss: 0.08390635945589135
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="More-Hebrew-Fun">More Hebrew Fun<a class="anchor-link" href="#More-Hebrew-Fun"> </a></h3><p>Remember that the model predicts a POS tag (simple or multi, one of the 315 from above) for each word-piece. But we don't want to evaluate word-pieces, we want to evaluate on whole words, because words can have multi-tags and also because we want to make a fair comparison with our baseline model that uses the actual morphemes (see example in the paper) - therefore all of our models are evaluated on word-level (as opposed to morpheme level, for example).</p>
+<p>This setting of the aggregation of the wordpieces (multi-)tags to a whole word assumes we combine the (multi-)tag of each wordpiece to a single multi-tag. It can easily be adjusted for the case where we take the first (multi-)tag to be the tag for the whole word.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Function receives a sentence with its labels, and the tokenized sentence and labels</span>
+<span class="k">def</span> <span class="nf">aggr_toks_labels_tags</span><span class="p">(</span><span class="n">orig_words</span><span class="p">,</span> <span class="n">orig_labels</span><span class="p">,</span> <span class="n">tok_wordps</span><span class="p">,</span> <span class="n">tok_labels</span><span class="p">,</span> <span class="n">predicted_tags</span><span class="p">):</span>
+    
+    <span class="n">joint_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">joint_labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">joint_predicted</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">orig_words</span><span class="p">:</span>
+        <span class="n">aggregated_tokenized</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">aggregated_label</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">aggregated_predicted</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">aggregated_test</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        
+        <span class="k">while</span> <span class="n">aggregated_tokenized</span> <span class="o">!=</span> <span class="n">word</span><span class="p">:</span>
+            <span class="n">tmpTok</span> <span class="o">=</span> <span class="n">tok_wordps</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tmpTok</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;##&quot;</span><span class="p">):</span>
+                <span class="n">tmpTok</span> <span class="o">=</span> <span class="n">tmpTok</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+                
+            <span class="n">tmpLab</span> <span class="o">=</span> <span class="n">tok_labels</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">aggregated_label</span> <span class="o">+=</span> <span class="s1">&#39;^&#39;</span>
+            <span class="n">aggregated_label</span> <span class="o">+=</span> <span class="n">tmpLab</span>
+
+            <span class="n">tmpPred</span> <span class="o">=</span> <span class="n">predicted_tags</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">aggregated_predicted</span> <span class="o">+=</span> <span class="s1">&#39;^&#39;</span>
+            <span class="n">aggregated_predicted</span> <span class="o">+=</span> <span class="n">tmpPred</span>
+                
+            <span class="n">aggregated_tokenized</span> <span class="o">+=</span> <span class="n">tmpTok</span>
+
+            
+        <span class="n">joint_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aggregated_tokenized</span><span class="p">)</span>
+        <span class="n">joint_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aggregated_label</span><span class="p">)</span>
+        <span class="n">joint_predicted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aggregated_predicted</span><span class="p">)</span>
+
+        
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">joint_tokens</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">orig_words</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">joint_tokens</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">joint_predicted</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">joint_tokens</span><span class="p">,</span> <span class="n">joint_labels</span><span class="p">,</span> <span class="n">joint_predicted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Building-the-evaluation-models-and-evaluating-on-the-dev-set">Building the evaluation models and evaluating on the dev set<a class="anchor-link" href="#Building-the-evaluation-models-and-evaluating-on-the-dev-set"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">flat_accuracy</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="n">pred_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">labels_flat</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pred_flat</span> <span class="o">==</span> <span class="n">labels_flat</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_flat</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">delete_pads_from_preds</span><span class="p">(</span><span class="n">predicted_tags</span><span class="p">,</span> <span class="n">test_tags</span><span class="p">):</span>
+    <span class="n">clean_predicted</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">clean_test</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_tags</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">test_tags</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;PAD&#39;</span><span class="p">:</span>
+            <span class="n">clean_predicted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">predicted_tags</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+            <span class="n">clean_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_tags</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+            
+    <span class="k">return</span> <span class="n">clean_predicted</span><span class="p">,</span> <span class="n">clean_test</span>
+    
+<span class="k">def</span> <span class="nf">calculate_accuracy</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">numOfCorrectPredictions</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">orig_pos</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;orig_label&#39;</span><span class="p">]</span>
+        <span class="n">pred_pos</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;predicted_tag&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">orig_pos</span> <span class="o">==</span> <span class="n">pred_pos</span><span class="p">:</span>
+            <span class="n">numOfCorrectPredictions</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">numOfCorrectPredictions</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+                
+<span class="k">def</span> <span class="nf">test_model</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">tok_sent</span><span class="p">,</span> <span class="n">tok_labels</span><span class="p">,</span> <span class="n">corres_tokens</span><span class="p">,</span> <span class="n">sent_id</span><span class="p">):</span>
+    <span class="n">input_ids</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">attention_masks</span> <span class="o">=</span> <span class="n">pad_sentences_and_labels</span><span class="p">([</span><span class="n">tok_sent</span><span class="p">],</span> <span class="p">[</span><span class="n">tok_labels</span><span class="p">])</span>
+
+    <span class="n">val_inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+    <span class="n">val_tags</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+    <span class="n">val_masks</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">attention_masks</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+
+    <span class="n">test_data</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">val_inputs</span><span class="p">,</span> <span class="n">val_masks</span><span class="p">,</span> <span class="n">val_tags</span><span class="p">)</span>
+    <span class="n">test_sampler</span> <span class="o">=</span> <span class="n">SequentialSampler</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+    <span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="n">test_sampler</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">bs</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">eval_loss</span><span class="p">,</span> <span class="n">eval_accuracy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">nb_eval_steps</span><span class="p">,</span> <span class="n">nb_eval_examples</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">predictions</span><span class="p">,</span> <span class="n">true_labels</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">test_dataloader</span><span class="p">:</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">b_input_ids</span><span class="p">,</span> <span class="n">b_input_mask</span><span class="p">,</span> <span class="n">b_labels</span> <span class="o">=</span> <span class="n">batch</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">b_input_ids</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                <span class="n">attention_mask</span><span class="o">=</span><span class="n">b_input_mask</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">b_labels</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">label_ids</span> <span class="o">=</span> <span class="n">b_labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)])</span>
+        
+        <span class="n">true_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_ids</span><span class="p">)</span>
+        <span class="n">tmp_eval_accuracy</span> <span class="o">=</span> <span class="n">flat_accuracy</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">label_ids</span><span class="p">)</span>
+
+        <span class="n">eval_loss</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">eval_accuracy</span> <span class="o">+=</span> <span class="n">flat_accuracy</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">label_ids</span><span class="p">)</span>
+
+        <span class="n">nb_eval_examples</span> <span class="o">+=</span> <span class="n">b_input_ids</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">nb_eval_steps</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">eval_loss</span> <span class="o">=</span> <span class="n">eval_loss</span> <span class="o">/</span> <span class="n">nb_eval_steps</span>
+    
+    <span class="n">pred_tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">idx2tag</span><span class="p">[</span><span class="n">p_ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">predictions</span> <span class="k">for</span> <span class="n">p_i</span> <span class="ow">in</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p_ii</span> <span class="ow">in</span> <span class="n">p_i</span><span class="p">]</span>
+    <span class="n">joint_tokenized</span><span class="p">,</span> <span class="n">joint_labels</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span> <span class="n">aggr_toks_labels_tags</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">tok_sent</span><span class="p">,</span> <span class="n">tok_labels</span><span class="p">,</span> 
+                                                                        <span class="n">pred_tags</span><span class="p">)</span>
+    
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="n">sentence</span><span class="p">,</span> <span class="s1">&#39;orig_label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;predicted_tag&#39;</span><span class="p">:</span> <span class="n">preds</span><span class="p">,</span> 
+           <span class="s1">&#39;corresToken&#39;</span><span class="p">:</span> <span class="n">corres_tokens</span><span class="p">,</span> <span class="s1">&#39;sent_id&#39;</span><span class="p">:</span> <span class="n">sent_id</span><span class="p">}</span>
+    <span class="n">tmp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tmp_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">full_dev_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">dev_tokenized_texts</span><span class="p">,</span> <span class="n">dev_tokenized_labels</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">(</span><span class="n">dev_sentences</span><span class="p">,</span> <span class="n">dev_labels</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sent</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">tok_sent</span><span class="p">,</span> <span class="n">tok_label</span><span class="p">,</span> <span class="n">corresTokens</span><span class="p">,</span> <span class="n">sent_id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dev_sentences</span><span class="p">,</span> <span class="n">dev_labels</span><span class="p">,</span> <span class="n">dev_tokenized_texts</span><span class="p">,</span> 
+                                                                   <span class="n">dev_tokenized_labels</span><span class="p">,</span> <span class="n">dev_corresTokens</span><span class="p">,</span> 
+                                                                   <span class="n">dev_sent_ids</span><span class="p">):</span>
+    <span class="n">eval_df</span> <span class="o">=</span> <span class="n">test_model</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">tok_sent</span><span class="p">,</span> <span class="n">tok_label</span><span class="p">,</span> <span class="n">corresTokens</span><span class="p">,</span> <span class="n">sent_id</span><span class="p">)</span>
+    <span class="n">full_dev_df</span> <span class="o">=</span> <span class="n">full_dev_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eval_df</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-the-dev-DataFrame-looks-like-after-evaluation">How the dev DataFrame looks like after evaluation<a class="anchor-link" href="#How-the-dev-DataFrame-looks-like-after-evaluation"> </a></h3><p>Under the 'predicted_tag' column we can see the aggragated tag. Some processing is still required for the predicted tag to be comparable to the 'orig_label' tag - see the next cells.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">full_dev_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>orig_label</th>
+      <th>predicted_tag</th>
+      <th>corresToken</th>
+      <th>sent_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>עשרות</td>
+      <td>CDT</td>
+      <td>^CD</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>אנשים</td>
+      <td>NN</td>
+      <td>^NN</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>מגיעים</td>
+      <td>BN</td>
+      <td>^BN^BN</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>מתאילנד</td>
+      <td>PREPOSITION^NNP</td>
+      <td>^PREPOSITION^NNP^PREPOSITION^NNP^PREPOSITION^NNP</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>לישראל</td>
+      <td>PREPOSITION^NNP</td>
+      <td>^PREPOSITION^NNP</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Splitting-the-predicted-tag">Splitting the predicted tag<a class="anchor-link" href="#Splitting-the-predicted-tag"> </a></h3><p>As mentioned in the theoratical post and in the paper, we split the predicted tag to that it includes only unique tags by the order they were predicted. We make a list of tags from both the original tag and the predicted (uniquely filtered) tag, and those lists will be compared.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">more_itertools</span> <span class="kn">import</span> <span class="n">unique_everseen</span>
+
+<span class="k">def</span> <span class="nf">unique_vals_to_list</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">joint_pred</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;predicted_tag&#39;</span><span class="p">]</span>
+        <span class="n">joint_orig</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;orig_label&#39;</span><span class="p">]</span>
+        
+        <span class="n">predicted_tag_list</span> <span class="o">=</span> <span class="n">joint_pred</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;^&#39;</span><span class="p">)</span>
+        <span class="n">predicted_tag_list_no_empty</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">predicted_tag_list</span><span class="p">))</span>
+        <span class="n">original_tag_list</span> <span class="o">=</span> <span class="n">joint_orig</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;^&#39;</span><span class="p">)</span>
+        <span class="n">original_tag_list_no_empty</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">original_tag_list</span><span class="p">))</span>
+
+        
+        <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;predicted_tag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">unique_everseen</span><span class="p">(</span><span class="n">predicted_tag_list_no_empty</span><span class="p">))</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;orig_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">unique_everseen</span><span class="p">(</span><span class="n">original_tag_list_no_empty</span><span class="p">))</span>
+        
+        
+<span class="n">unique_vals_to_list</span><span class="p">(</span><span class="n">full_dev_df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comparing-predicted-vs.-original-label">Comparing predicted vs. original label<a class="anchor-link" href="#Comparing-predicted-vs.-original-label"> </a></h3><p>Two metrics of evaluation are available - exact match and existence.
+Exact match - pretty straight forward, an all-or-nothing approach, if the original label is IN^DEF^NN and the model predicted exactly that - great, if it predicted IN^NN - it doesn't count as success. This is a tough test, sure. What if the model actually predicted the tags but not in the right order (suppose DEF^IN^NN) or maybe just got 2 tags out of 3? doesn't that count for something?
+Sure thing. So the second metric is the existence, where we calculate the standard precision and recall for the tags that appeared in both the predicted and original tags and report the F1 score based on those calculations.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">exact_match_accuracy</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">exact_matches</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;orig_label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;predicted_tag&#39;</span><span class="p">]:</span>
+            <span class="n">exact_matches</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+    <span class="k">return</span> <span class="n">exact_matches</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEV - Exact Match Accuracy = </span><span class="si">{0:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exact_match_accuracy</span><span class="p">(</span><span class="n">dev_combined</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">dev_combined</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">existence_accuracy</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="c1"># correct tag = appeared in predicted and in original</span>
+    <span class="n">total_orig_num_of_labels</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_predicted_num_of_labels</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_num_of_correct_tags</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">orig_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;orig_label&#39;</span><span class="p">]</span>
+        <span class="n">predicted_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;predicted_tag&#39;</span><span class="p">]</span>
+        <span class="n">total_orig_num_of_labels</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">orig_list</span><span class="p">)</span>
+        <span class="n">total_predicted_num_of_labels</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">predicted_list</span><span class="p">)</span>
+        <span class="n">total_num_of_correct_tags</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">orig_list</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">predicted_list</span><span class="p">)))</span>
+        
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">total_num_of_correct_tags</span> <span class="o">/</span> <span class="n">total_predicted_num_of_labels</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">total_num_of_correct_tags</span> <span class="o">/</span> <span class="n">total_orig_num_of_labels</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="o">/</span><span class="p">(</span><span class="n">precision</span><span class="o">+</span><span class="n">recall</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Precision: </span><span class="si">{0:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Recall: </span><span class="si">{0:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">recall</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;F1: </span><span class="si">{0:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f1</span><span class="p">))</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEV:&quot;</span><span class="p">)</span>
+<span class="n">existence_accuracy</span><span class="p">(</span><span class="n">dev_combined</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="That's-it!">That's it!<a class="anchor-link" href="#That's-it!"> </a></h3><p>Some more things that can be done (and maybe will be done by me in the future...)</p>
+<ol>
+<li>Fine-tune on ordered sentences, that is, see if the learning improves if we apply some order to the sentences (for example arrange the sentences from shortest to longest). The idea behind this is that shorter sentences probably have a simpler syntactic structure, and fine-tuning on them first will hhelp the model learn basic and fundamental properties of Hebrew structure.</li>
+<li>Change the tokenizer - I think this is the biggest issue in processing Hebrew in general. It was demonstrated in the paper that BERT's tokenizer is not suitable for languages with complex morphology - we should probably use a different tokenizer for such languages (but that would also require pre-training BERT all together).</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="stavkl/linguistics-for-nlp"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/linguistics-for-nlp/fastpages/jupyter/2020/10/22/sigmorphon-walkthrough.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/linguistics-for-nlp/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/linguistics-for-nlp/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/linguistics-for-nlp/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My linguistic perspective on NLP research.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/stavkl" title="stavkl"><svg class="svg-icon grey"><use xlink:href="/linguistics-for-nlp/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/stavkl" title="stavkl"><svg class="svg-icon grey"><use xlink:href="/linguistics-for-nlp/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
