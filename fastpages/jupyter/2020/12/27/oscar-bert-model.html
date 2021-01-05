@@ -146,12 +146,12 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Avichay Chriqui and Dr. Inbal Yahav Shenberger recently released a new model for Hebrew based on BERT's architecture and trained on the OSCAR corpus. The model is built with the huggingface library and uses the library's <AutoTokenizer> (which is WordPieces since the model is BERT-based) and the model itself is <AutoModelForMaskedLM>. 
-Key differences between HeBERT and mBERT are summarized in the table below:&lt;/p&gt;
+<p>Avichay Chriqui and Dr. Inbal Yahav Shenberger recently released a new model for Hebrew based on BERT's architecture and trained on the OSCAR corpus. The model is built with the huggingface library and uses the library's <code>AutoTokenizer</code> (which is WordPieces since the model is BERT-based) and the model itself is <code>AutoModelForMaskedLM</code>. 
+Key differences between HeBERT and mBERT are summarized in the table below:</p>
 
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -276,9 +276,9 @@ Key differences between HeBERT and mBERT are summarized in the table below:&lt;/
 <p>It's clear from both tables that the HeBERT is order of magnitude larger than the Hebrew part of the multilingual BERT. I reproduced two experimental settings from this <a href="https://www.aclweb.org/anthology/2020.sigmorphon-1.24/">paper from 2020 SIGMORPHON</a> (and see also the corresponding <a href="https://stavkl.github.io/linguistics-for-nlp/fastpages/jupyter/2020/09/21/getting-the-life.html">blog post</a> for more details) in order to examine the contribution of huge amounts of data to the complex-POS tagging task. Both experiments ran in exactly the same settings, with the only differences being the choice of model and tokenizer.<br />
 Below are examples for the tokenization differences between models:<br />
 <strong>mBERT tokenization</strong><br />
-(<a href="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/tokenized-examples/mbert-tokenized.PNG">https://github.com/stavkl/linguistics-for-nlp/raw/master/images/tokenized-examples/mbert-tokenized.PNG</a>)<br />
+<img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/tokenized-examples/mbert-tokenized.PNG" alt="" /><br />
 <strong>HeBERT tokenization</strong><br />
-(<a href="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/tokenized-examples/hebert-tokenized.PNG">https://github.com/stavkl/linguistics-for-nlp/raw/master/images/tokenized-examples/hebert-tokenized.PNG</a>)<br /></p>
+<img src="https://github.com/stavkl/linguistics-for-nlp/raw/master/images/tokenized-examples/hebert-tokenized.PNG" alt="" /><br /></p>
 
 </div>
 </div>
@@ -439,10 +439,8 @@ Stav</p>
 </div>
 </div>
 </div>
-&lt;/div&gt;
- 
+</div>
 
-</AutoModelForMaskedLM></AutoTokenizer></p></div></div></div></div>
 
 
   </div><!-- from https://github.com/utterance/utterances -->
